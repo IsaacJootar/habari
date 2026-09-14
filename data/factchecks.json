@@ -1,0 +1,402 @@
+[
+  {
+    "id": "pesacheck-coconut-cure-covid19-001",
+    "title": "FALSE: Coconut does not cure COVID-19",
+    "summary": "A widely shared article claimed Philippine scientists had proven that virgin coconut oil cures COVID-19. PesaCheck found that while early-stage trials on coconut oil as a supplement were underway in the Philippines, WHO confirmed there was no vaccine or cure for COVID-19 at the time, making the cure claim false.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/false-coconut-does-not-cure-covid-19/",
+    "topic_tags": ["health", "covid-19", "home-remedy", "misinformation"],
+    "country": "Pan-African",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-bbc-vaccine-death-hoax-002",
+    "title": "FALSE: BBC did not report that people vaccinated against COVID-19 won't live beyond June 2026",
+    "summary": "A fabricated image styled as a BBC breaking-news graphic claimed the broadcaster had confirmed COVID-19 vaccinated people would not survive past June 2026. PesaCheck found no such report anywhere on BBC's platforms, and BBC directly confirmed to PesaCheck that the story was not genuine.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/false-bbc-did-not-report-that-people-vaccinated-against-covid-19-wont-live-beyond-june-2026/",
+    "topic_tags": ["health", "vaccine", "covid-19", "misinformation"],
+    "country": "Pan-African",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-ebola-hunger-fake-moh-003",
+    "title": "FAKE: This purported Ministry of Health X post about Ugandans mistaking hunger for Ebola is fabricated",
+    "summary": "During Uganda's 2026 Ebola outbreak, a screenshot circulated claiming the Ministry of Health had posted that urban Ugandans were confusing hunger with Ebola symptoms. PesaCheck found no trace of the post on the ministry's official account, and a ministry spokesperson confirmed the message was fake.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/fake-this-purported-ministry-of-health-x-post-about-ugandans-mistaking-hunger-for-ebola-is-fabricated/",
+    "topic_tags": ["health", "ebola", "outbreak", "uganda"],
+    "country": "Uganda",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-kissinger-vaccine-quote-004",
+    "title": "FALSE: This screenshot about mandatory vaccinations attributed to former US Secretary of State Henry Kissinger is untrue",
+    "summary": "A viral quote attributed to Henry Kissinger describing mandatory vaccination as population control, supposedly from a 2009 WHO address, circulated widely online. PesaCheck found no record of Kissinger giving such a speech, and both his press office and the WHO denied the quote and event ever existed.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/false-this-screenshot-about-mandatory-vaccinations-attributed-to-former-us-secretary-of-state/",
+    "topic_tags": ["health", "vaccine", "conspiracy", "misinformation"],
+    "country": "Kenya",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "africacheck-covid-vaccine-arthritis-deepfake-005",
+    "title": "Kenyan TV anchors didn't say Covid vaccines cause arthritis – ignore AI-generated video",
+    "summary": "An AI-manipulated video made to look like a genuine Citizen TV broadcast showed a news anchor and doctor claiming Pfizer and Moderna's COVID-19 vaccines were unsafe and cause arthritis. Africa Check found the clip was stitched from unrelated footage using AI voice cloning and lip-syncing, and no such broadcast was ever aired.",
+    "verdict": "False",
+    "source_url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/kenyan-tv-anchors-didnt-say-covid-vaccines-cause-arthritis",
+    "topic_tags": ["health", "vaccine", "covid-19", "deepfake", "kenya"],
+    "country": "Kenya",
+    "source": "Africa Check"
+  },
+  {
+    "id": "africacheck-salt-vinegar-gargle-covid-006",
+    "title": "No, gargling salt or vinegar water will not cure coronavirus",
+    "summary": "Social media posts claimed gargling with salt or vinegar water could cure or prevent COVID-19. Africa Check found no scientific evidence supporting this, noting home remedies may ease minor discomfort but cannot treat or prevent the disease.",
+    "verdict": "False",
+    "source_url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/no-gargling-salt-or-vinegar-water-will-not-cure-coronavirus",
+    "topic_tags": ["health", "covid-19", "home-remedy"],
+    "country": "Pan-African",
+    "source": "Africa Check"
+  },
+  {
+    "id": "africacheck-steaming-onion-garlic-covid-007",
+    "title": "Steaming with onion, garlic, lemon and garlic won't 'destroy' Covid-19",
+    "summary": "A popular WhatsApp remedy claimed that inhaling steam infused with onion, garlic and lemon would kill the coronavirus in the body. Africa Check found no evidence hot steam can destroy the virus internally, and warned that inhaling high-temperature steam can actually cause burns and injury.",
+    "verdict": "False",
+    "source_url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/steaming-onion-garlic-lemon-and-garlic-wont-destroy-covid-19",
+    "topic_tags": ["health", "covid-19", "home-remedy", "whatsapp"],
+    "country": "Pan-African",
+    "source": "Africa Check"
+  },
+  {
+    "id": "africacheck-lemon-baking-soda-covid-008",
+    "title": "No, lemon and baking soda mix doesn't cure Covid-19",
+    "summary": "A viral claim suggested that drinking a mix of lemon juice and baking soda could cure COVID-19 by making the body more alkaline. Africa Check consulted a WHO spokesperson who confirmed there was no scientific evidence for the claim.",
+    "verdict": "False",
+    "source_url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/no-lemon-and-baking-soda-mix-doesnt-cure-covid-19",
+    "topic_tags": ["health", "covid-19", "home-remedy"],
+    "country": "Pan-African",
+    "source": "Africa Check"
+  },
+  {
+    "id": "africacheck-lenacapavir-hiv-kenya-009",
+    "title": "Kenya to roll out HIV jab lenacapavir in 2026, not a replacement for anti-retrovirals",
+    "summary": "Posts circulating online suggested Kenya's new twice-yearly HIV injection, lenacapavir, would replace antiretroviral treatment for people already living with HIV. Africa Check clarified the jab is a prevention tool for HIV-negative people at high risk, not a substitute for existing treatment.",
+    "verdict": "Misleading",
+    "source_url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/kenya-roll-out-hiv-jab-lenacapavir-2026-not-replacement-anti",
+    "topic_tags": ["health", "hiv", "vaccine", "kenya"],
+    "country": "Kenya",
+    "source": "Africa Check"
+  },
+  {
+    "id": "dubawa-waterleaf-sperm-count-010",
+    "title": "False! Waterleaf mixture does not cure low sperm count",
+    "summary": "A viral video claimed a mixture of waterleaf and evaporated milk could cure low sperm count in men. Dubawa reviewed the limited scientific literature, which is restricted to animal studies with mixed results, and two fertility specialists confirmed there is no clinical evidence supporting the remedy in humans.",
+    "verdict": "False",
+    "source_url": "https://dubawa.org/false-waterleaf-mixture-does-not-cure-low-sperm-count/",
+    "topic_tags": ["health", "fertility", "home-remedy", "nigeria"],
+    "country": "Nigeria",
+    "source": "Dubawa"
+  },
+  {
+    "id": "dubawa-lassa-fever-kogi-011",
+    "title": "X user's claim hemorrhagic fever killed student in Kogi, false",
+    "summary": "A viral X post claimed a student in Lokoja, Kogi State, had died of a hemorrhagic fever outbreak, sparking fears of Lassa fever spreading in the area. Dubawa found the student's test results had come back negative for Lassa fever, and the state health commissioner denied any confirmed outbreak.",
+    "verdict": "False",
+    "source_url": "https://dubawa.org/x-users-claim-hemorrhagic-fever-killed-student-in-kogi-false/",
+    "topic_tags": ["health", "outbreak", "lassa-fever", "nigeria"],
+    "country": "Nigeria",
+    "source": "Dubawa"
+  },
+  {
+    "id": "dubawa-hypertension-cure-deepfake-012",
+    "title": "Misleading! Nigerian doctor did not invent hypertension cure",
+    "summary": "Videos shared on Facebook claimed a Nigerian doctor had invented a drug that cures high blood pressure within days and urged patients to stop taking their prescribed medication. Dubawa found the footage combined a deepfake TV clip with unrelated protest footage and an unrelated conference speech, and confirmed no such cure exists.",
+    "verdict": "Misleading",
+    "source_url": "https://dubawa.org/misleading-nigerian-doctor-did-not-invent-hypertension-cure/",
+    "topic_tags": ["health", "hypertension", "deepfake", "nigeria"],
+    "country": "Nigeria",
+    "source": "Dubawa"
+  },
+  {
+    "id": "pesacheck-fake-star-article-mtkenya-013",
+    "title": "FAKE: This article on Mt Kenya voting bloc isn't from The Star",
+    "summary": "An image of a purported Star newspaper article claimed a campaign to split the Mt Kenya voting bloc was undermining former deputy president Rigathi Gachagua's support. PesaCheck found the article never appeared on The Star's site or social channels, spotted formatting inconsistencies, and confirmed with the publication that it disowned the piece.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/fake-this-article-on-mt-kenya-voting-bloc-isnt-from-the-star/",
+    "topic_tags": ["election", "kenya", "fabricated-article"],
+    "country": "Kenya",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-altered-standard-karua-014",
+    "title": "ALTERED: This cover of The Standard featuring a story on opposition presidential candidate is doctored",
+    "summary": "A doctored front page of The Standard newspaper claimed Kenya's opposition coalition had settled on Martha Karua as its 2027 presidential candidate. PesaCheck compared it with the newspaper's genuine e-paper edition from the same date, which carried a completely different headline and story, and the publisher confirmed the cover was fake.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/altered-this-cover-of-the-standard-featuring-a-story-on-opposition-presidential-candidate-is-doctored/",
+    "topic_tags": ["election", "kenya", "doctored-image", "2027-election"],
+    "country": "Kenya",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-museveni-deepfake-threat-015",
+    "title": "FAKE: This video of President Museveni's warning about election results is fabricated",
+    "summary": "A TikTok video appeared to show Uganda's President Museveni threatening violence against anyone rejecting the 2026 election results and admitting to rigging the vote. PesaCheck's AI-detection analysis found a 99.9% likelihood the video was synthetically generated from a still photo, with no independent record of the statements being made.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/fake-this-video-of-president-musevenis-warning-about-election-results-is-fabricated/",
+    "topic_tags": ["election", "uganda", "deepfake", "museveni"],
+    "country": "Uganda",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-fake-bbc-uganda-election-016",
+    "title": "FALSE: This BBC News report on the projections of Ugandan elections is fake",
+    "summary": "A TikTok screenshot claimed the BBC had published election projections from a group called 'International Election Watch' showing opposition candidate Bobi Wine losing badly in Uganda's 2026 vote. PesaCheck found no such organisation exists and the BBC confirmed it never published the story.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/false-this-bbc-news-report-on-the-projections-of-ugandan-elections-is-fake/",
+    "topic_tags": ["election", "uganda", "fabricated-article", "bobi-wine"],
+    "country": "Uganda",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-bobiwine-fake-swearing-017",
+    "title": "FALSE: This video does not show Bobi Wine's swearing in as president of Uganda",
+    "summary": "A TikTok video circulating after Uganda's 2026 election claimed to show opposition leader Bobi Wine being sworn in as president. A reverse image search by PesaCheck traced the footage to Bobi Wine's actual 2017 swearing-in as a member of parliament, not a 2026 presidential inauguration.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/false-this-video-does-not-show-bobi-wines-swearing-in-as-president-of-uganda/",
+    "topic_tags": ["election", "uganda", "bobi-wine", "old-footage"],
+    "country": "Uganda",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-uganda-mps-elect-president-018",
+    "title": "MISSING CONTEXT: This newspaper front page on the proposal for MPs to elect Uganda's president is old",
+    "summary": "A New Vision front page about a proposal for Ugandan MPs, rather than the public, to elect the president was shared as if it were current 2026 news. PesaCheck traced the front page back to January 2022 and confirmed the constitutional amendment never happened, with the president still elected by popular vote.",
+    "verdict": "Misleading",
+    "source_url": "https://pesacheck.org/missing-context-this-newspaper-front-page-on-the-proposal-for-mps-to-elect-ugandas-president-is-old/",
+    "topic_tags": ["election", "uganda", "old-news", "constitution"],
+    "country": "Uganda",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-fake-citizen-digital-ruto-019",
+    "title": "FAKE: This Citizen Digital article about President William Ruto's re-election is fabricated",
+    "summary": "A fake Citizen Digital article claimed Northern Kenya's population and voting patterns held the key to President Ruto's 2027 re-election bid, citing invented support percentages. PesaCheck found no matching article on Citizen Digital's site and identified layout and formatting inconsistencies before the outlet confirmed it never published the piece.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/fake-this-citizen-digital-article-about-president-william-rutos-re-election-is-fabricated/",
+    "topic_tags": ["election", "kenya", "2027-election", "fabricated-article"],
+    "country": "Kenya",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-altered-farouk-board-020",
+    "title": "ALTERED: This image of Ruto's aide Farouk writing on a board is doctored",
+    "summary": "An image circulating online showed presidential aide Farouk Kibet appearing to write an awkwardly phrased pro-Ruto slogan on a chalkboard, mocking his education. PesaCheck compared it with Kibet's own photos from the same school event and found the second phrase had been added digitally.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/altered-this-image-of-rutos-aide-farouk-writing-on-a-board-is-doctored/",
+    "topic_tags": ["election", "kenya", "doctored-image", "ruto"],
+    "country": "Kenya",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "dubawa-inec-no-winner-2023-021",
+    "title": "False! INEC yet to announce winner of Nigeria's 2023 Presidential election",
+    "summary": "During vote collation, a Facebook post claimed Bola Tinubu had already been confirmed as Nigeria's 16th president after securing 25% of votes in 34 states. Dubawa found Nigeria's electoral commission had not yet declared a winner at the time the claim was made, even though Tinubu was leading.",
+    "verdict": "False",
+    "source_url": "https://dubawa.org/false-inec-yet-to-announce-winner-of-nigerias-2023-presidential-election/",
+    "topic_tags": ["election", "nigeria", "inec", "2023-election"],
+    "country": "Nigeria",
+    "source": "Dubawa"
+  },
+  {
+    "id": "dubawa-obi-won-claim-false-022",
+    "title": "Facebook user claims Obi won 2023 presidential election",
+    "summary": "A Facebook post used invented regional vote percentages to claim Labour Party's Peter Obi actually won Nigeria's 2023 presidential election ahead of Atiku Abubakar and Bola Tinubu. Dubawa recalculated the real results from INEC-certified figures, which show Tinubu won with the most votes nationally.",
+    "verdict": "False",
+    "source_url": "https://dubawa.org/facebook-user-claims-obi-won-2023-presidential-election/",
+    "topic_tags": ["election", "nigeria", "2023-election", "peter-obi"],
+    "country": "Nigeria",
+    "source": "Dubawa"
+  },
+  {
+    "id": "africacheck-yakubu-no-proof-tinubu-023",
+    "title": "No proof Nigeria's electoral commission chair said president Bola Tinubu did not win 2023 presidential election",
+    "summary": "Facebook posts claimed INEC chairman Mahmood Yakubu admitted privately that Bola Tinubu had not actually won the 2023 election but declared him winner out of fear. Africa Check could not find any evidence Yakubu ever made such a statement.",
+    "verdict": "False",
+    "source_url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/no-proof-nigerias-electoral-commission-chair-said-president",
+    "topic_tags": ["election", "nigeria", "inec", "2023-election"],
+    "country": "Nigeria",
+    "source": "Africa Check"
+  },
+  {
+    "id": "africacheck-tinubu-running-mate-2027-024",
+    "title": "Nigeria's president Bola Tinubu hasn't chosen new running mate for 2027 elections as claimed online",
+    "summary": "Online posts claimed President Tinubu had dropped his current deputy, Kashim Shettima, in favour of Rabiu Kwankwaso as his running mate for the 2027 election. Africa Check found the presidency denied any such decision had been made.",
+    "verdict": "False",
+    "source_url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/nigerias-president-bola-tinubu-hasnt-chosen-new-running-mate",
+    "topic_tags": ["election", "nigeria", "2027-election", "tinubu"],
+    "country": "Nigeria",
+    "source": "Africa Check"
+  },
+  {
+    "id": "africacheck-fake-infotrak-poll-ruto-025",
+    "title": "Fake 'Infotrak poll' shows Kenyan president William Ruto coming third in 2027 election",
+    "summary": "A Facebook post claimed pollster Infotrak had released results showing former cabinet secretary Fred Matiang'i leading Kenya's 2027 presidential race with Ruto trailing in third place. Africa Check found no evidence such a poll was ever conducted or published by Infotrak.",
+    "verdict": "False",
+    "source_url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/fake-infotrak-poll-shows-kenyan-president-william-ruto",
+    "topic_tags": ["election", "kenya", "2027-election", "fake-poll"],
+    "country": "Kenya",
+    "source": "Africa Check"
+  },
+  {
+    "id": "africacheck-standard-ruto-62percent-026",
+    "title": "Kenya's Standard newspaper didn't project that president Ruto would win 2027 elections with 62% of the vote",
+    "summary": "An image styled as a Standard newspaper front page claimed the paper had projected President Ruto winning the 2027 election with 62% of the vote. Africa Check found the front page had been altered and did not match the newspaper's genuine edition.",
+    "verdict": "False",
+    "source_url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/kenyas-standard-newspaper-didnt-project-president-ruto-would",
+    "topic_tags": ["election", "kenya", "2027-election", "doctored-image"],
+    "country": "Kenya",
+    "source": "Africa Check"
+  },
+  {
+    "id": "pesacheck-mpesa-anniversary-scam-027",
+    "title": "HOAX: This site claiming to offer cash giveaways for M-PESA anniversary is a scam",
+    "summary": "A site shared widely on WhatsApp claimed Safaricom was giving away KSh 5,000 to celebrate an M-PESA anniversary, requiring users to share the link before receiving cash. PesaCheck traced the site to a domain registered anonymously in Iceland, unrelated to Safaricom, which confirmed to PesaCheck it was a phishing scam.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/hoax-this-site-claiming-to-offer-cash-giveaways-for-m-pesa-anniversary-is-a-scam/",
+    "topic_tags": ["scam", "mpesa", "phishing", "kenya"],
+    "country": "Kenya",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-safaricom-trading-scam-028",
+    "title": "HOAX: This site running a trading platform supposedly from Safaricom is a scam",
+    "summary": "A website claimed Safaricom had launched an 'M-Pesa Trading' investment platform promising huge monthly returns, using an AI-generated video of the CEO for credibility, and asking users for a KSh 35,000 deposit. PesaCheck confirmed with Safaricom that the platform is not theirs and found the CEO's voice in the clip was artificially generated.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/hoax-this-site-running-a-trading-platform-supposedly-from-safaricom-is-a-scam/",
+    "topic_tags": ["scam", "mpesa", "investment-fraud", "deepfake", "kenya"],
+    "country": "Kenya",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-kdf-recruitment-scam-029",
+    "title": "HOAX: This site purporting to be a Kenya Defence Forces recruitment portal is a scam",
+    "summary": "A link shared on WhatsApp claimed to be an official Kenya Defence Forces recruitment portal, collecting applicants' personal data and pushing them to share the link with many contacts. PesaCheck found the link led to an unofficial blogspot page rather than the real Ministry of Defence site, matching the pattern of a phishing scheme.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/hoax-this-site-purporting-to-be-a-kenya-defence-forces-recruitment-portal-is-a-scam/",
+    "topic_tags": ["scam", "phishing", "job-scam", "kenya"],
+    "country": "Kenya",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "pesacheck-whatsapp-screenshot-feature-030",
+    "title": "FALSE: WhatsApp has not released a feature that notifies users when chats are recorded or screenshots are taken",
+    "summary": "A TikTok video claimed WhatsApp had introduced a feature that alerts a contact whenever you screenshot or screen-record their chat. Meta confirmed to PesaCheck that no such feature exists, and that only profile photos and 'View Once' messages have any screenshot restrictions.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/false-whatsapp-has-not-released-a-feature-that-notifies-users-when-chats-are-recorded-or/",
+    "topic_tags": ["scam", "whatsapp", "misinformation", "tech"],
+    "country": "Pan-African",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "dubawa-coca-cola-survey-scam-031",
+    "title": "Scam Alert: Coca Cola is not Running a Survey",
+    "summary": "A link circulating online claimed Coca-Cola was running a promotional survey that rewarded participants with prizes. Dubawa found no evidence the survey was affiliated with The Coca-Cola Company and concluded the link was a scam designed to collect user information.",
+    "verdict": "False",
+    "source_url": "https://dubawa.org/scam-alert-coca-cola-is-not-running-a-survey/",
+    "topic_tags": ["scam", "giveaway", "phishing", "nigeria"],
+    "country": "Nigeria",
+    "source": "Dubawa"
+  },
+  {
+    "id": "dubawa-jumia-recruitment-scam-032",
+    "title": "Scammers pose as Jumia, organise pseudo recruitment to defraud people",
+    "summary": "Facebook adverts claimed e-commerce company Jumia was recruiting for various well-paid roles. When Dubawa applied, it was redirected to a cloned Konga website demanding upfront payments to 'upgrade' an account, and Jumia's official page confirmed it had no connection to the adverts.",
+    "verdict": "False",
+    "source_url": "https://dubawa.org/scammers-pose-as-jumia-organise-pseudo-recruitment-to-defraud-people/",
+    "topic_tags": ["scam", "job-scam", "phishing", "nigeria"],
+    "country": "Nigeria",
+    "source": "Dubawa"
+  },
+  {
+    "id": "dubawa-whatsapp-50gb-hoax-033",
+    "title": "Whatsapp offer of free 50GB data is a Hoax!",
+    "summary": "A viral WhatsApp message claimed the app was giving away 50GB of free data to mark its 10th anniversary, requiring users to click a link and share it widely. WhatsApp's own support team confirmed to Dubawa the message was a hoax unrelated to the company, and the link never delivered any data.",
+    "verdict": "False",
+    "source_url": "https://dubawa.org/whatsapp-offer-of-free-50gb-data-is-a-hoax/",
+    "topic_tags": ["scam", "whatsapp", "giveaway", "nigeria"],
+    "country": "Nigeria",
+    "source": "Dubawa"
+  },
+  {
+    "id": "dubawa-glo-20gb-liberia-034",
+    "title": "Scam! Glo is not giving out 20GB data to Customers as 18th Anniversary Celebration Gifts!",
+    "summary": "A WhatsApp message claimed telecom operator Globacom (Glo) was giving all customers 20GB of free data to mark its 18th anniversary. Dubawa found Glo's real anniversary offer was a much smaller, automatic reward for recharging customers in Nigeria only, and the company confirmed the viral message was not theirs.",
+    "verdict": "False",
+    "source_url": "https://dubawa.org/scam-glo-is-not-giving-out-20gb-data-to-customers-as-18th-anniversary-celebration-gifts/",
+    "topic_tags": ["scam", "giveaway", "telecom", "liberia"],
+    "country": "Liberia",
+    "source": "Dubawa"
+  },
+  {
+    "id": "africacheck-survey-junkie-scam-035",
+    "title": "Survey Junkie giving away money? No, just another scam using edited Facebook posts",
+    "summary": "Facebook posts claiming users had earned over $1,380 in a week from a site called Survey Junkie urged others to sign up via a suspicious link. Africa Check found the posts were originally about unrelated topics and had been edited to push the scam, a common tactic to make fraudulent posts look organic.",
+    "verdict": "False",
+    "source_url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/survey-junkie-giving-away-money-no-just-another-scam-using",
+    "topic_tags": ["scam", "giveaway", "phishing"],
+    "country": "Pan-African",
+    "source": "Africa Check"
+  },
+  {
+    "id": "africacheck-dangote-money-scam-036",
+    "title": "Don't fall for it! Nigerian billionaire Aliko Dangote is not giving away money via this dubious link",
+    "summary": "A link circulating on social media claimed Nigerian billionaire Aliko Dangote was personally giving away cash to members of the public who clicked through and registered. Africa Check found no legitimate connection between Dangote or his companies and the link, which follows the same pattern as other celebrity-giveaway scams.",
+    "verdict": "False",
+    "source_url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/dont-fall-it-nigerian-billionaire-aliko-dangote-not-giving",
+    "topic_tags": ["scam", "giveaway", "nigeria"],
+    "country": "Nigeria",
+    "source": "Africa Check"
+  },
+  {
+    "id": "africacheck-elon-musk-deepfake-scam-037",
+    "title": "Beware another Elon Musk investment scam using deepfake videos of the billionaire and news anchors",
+    "summary": "Deepfake videos showing Elon Musk and familiar news anchors were used to promote a fake investment platform promising huge returns. Africa Check identified the footage as AI-manipulated and warned the scheme was part of a wider pattern of deepfake-driven investment fraud.",
+    "verdict": "False",
+    "source_url": "https://africacheck.org/fact-checks/meta-programme-fact-checks/beware-another-elon-musk-investment-scam-using-deepfake",
+    "topic_tags": ["scam", "investment-fraud", "deepfake"],
+    "country": "Pan-African",
+    "source": "Africa Check"
+  },
+  {
+    "id": "pesacheck-martinelli-whatsapp-gold-hoax-038",
+    "title": "HOAX: This message warning WhatsApp users about 'Martinelli video' is fake",
+    "summary": "A years-old chain message resurfaced warning WhatsApp users not to open a video called 'Martinelli' and to avoid updating to a fake 'WhatsApp Gold', falsely attributing the warning to a BBC radio broadcast. PesaCheck confirmed with the BBC that it never issued such a warning, and the hoax has circulated in various forms since 2016.",
+    "verdict": "False",
+    "source_url": "https://pesacheck.org/hoax-this-message-warning-whatsapp-users-about-martinelli-video-is-fake/",
+    "topic_tags": ["general", "whatsapp", "hoax", "chain-message"],
+    "country": "Uganda",
+    "source": "PesaCheck"
+  },
+  {
+    "id": "dubawa-mahama-ghs500-scam-039",
+    "title": "Viral post claiming John Mahama offering GHS500 to Ghanaians, false",
+    "summary": "Ahead of Ghana's 2024 election, a WhatsApp link claimed former president John Mahama was distributing GHS500 in campaign funds to anyone who clicked and shared it widely. Dubawa found the link was a phishing scheme, and Mahama's own verified Facebook page publicly labelled the circulating message as fake.",
+    "verdict": "False",
+    "source_url": "https://ghana.dubawa.org/viral-post-claiming-john-mahama-offering-ghs500-to-ghanaians-false/",
+    "topic_tags": ["general", "scam", "election", "ghana", "phishing"],
+    "country": "Ghana",
+    "source": "Dubawa"
+  },
+  {
+    "id": "africacheck-nigeria-inflation-aide-040",
+    "title": "Nigerian presidential aide wrongly claims inflation has fallen during Bola Tinubu's first year in office",
+    "summary": "A presidential aide claimed Nigeria's inflation rate had fallen during President Tinubu's first year in office. Africa Check checked the claim against official statistics agency data, which showed inflation had in fact risen significantly over that period.",
+    "verdict": "False",
+    "source_url": "https://africacheck.org/fact-checks/spotchecks/nigerian-presidential-aide-wrongly-claims-inflation-has-fallen-during-bola",
+    "topic_tags": ["general", "economy", "inflation", "nigeria"],
+    "country": "Nigeria",
+    "source": "Africa Check"
+  }
+]
