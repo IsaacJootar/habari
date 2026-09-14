@@ -19,7 +19,7 @@ Living checklist for the hackathon build. Updated as work lands — check items 
 
 ## Phase 2 — LLM verdict logic ✅ DONE (2026-09-14)
 
-- [x] `app/llm.py` — OpenAI API wrapper (`gpt-4o-mini`, JSON-mode structured output)
+- [x] `app/llm.py` — OpenAI API wrapper (`gpt-4o-mini`, JSON-mode structured output). Chose `gpt-4o-mini` over `gpt-4o`: this is a grounded-summarization task (rephrase an already-published verdict from retrieved text), not one needing frontier reasoning. At $0.15/1M input + $0.60/1M output tokens, each verdict call costs a small fraction of a cent — dev testing plus a live demo stays well inside the $5 OpenAI free-trial credit.
 - [x] Prompt template: claim + retrieved article(s) → structured verdict (True/False/Misleading/Unverified), plain-language explanation, source link
 - [x] Grounding enforced: LLM only ever sees the retrieved article text, never asked to answer from general knowledge; `source_url` must exactly match one of the given articles or the reply is discarded
 - [x] No-match case bypasses the LLM entirely and returns "Unverified" directly; the LLM can *also* independently downgrade to "Unverified" if the retrieved article(s) don't actually address the specific claim (verified live — a vaccine-microchip claim correctly got "Unverified" even with 3 vaccine-tagged candidates retrieved, because none specifically addressed microchips)
