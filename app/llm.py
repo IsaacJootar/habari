@@ -3,7 +3,8 @@ import logging
 
 from openai import OpenAI
 
-from app.models import UNVERIFIED_REPLY, RetrievalMatch, WebhookReply
+from app.language import LANGUAGE_NAMES
+from app.models import RetrievalMatch, WebhookReply, unverified_reply
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +36,8 @@ share a topic or keyword), respond with verdict "Unverified", source_url null, a
 explanation that briefly says why and what the user should do next (e.g. check with a \
 trusted fact-checker before sharing).
 - Keep the explanation short, plain, and non-technical — it will be sent as a WhatsApp message.
+- Write the "explanation" field in {language_name}, regardless of what language the \
+candidate articles are written in.
 """
 
 
@@ -67,9 +70,9 @@ def _build_user_prompt(claim: str, matches: list[RetrievalMatch]) -> str:
     )
 
 
-def synthesize_verdict(claim: str, matches: list[RetrievalMatch]) -> WebhookReply:
+def synthesize_verdict(claim: str, matches: list[RetrievalMatch], language: str = "en") -> WebhookReply:
     """Ask the LLM to pick the best-matching retrieved article (if any) and
-    phrase a grounded verdict from it.
+    phrase a grounded verdict from it, in the given language ("en"/"sw").
 
     The model can only choose among the retrieved articles or say none of
     them actually address the claim (Unverified) — it is never asked to
@@ -79,7 +82,11 @@ def synthesize_verdict(claim: str, matches: list[RetrievalMatch]) -> WebhookRepl
     verdict.
     """
     if not matches:
-        return UNVERIFIED_REPLY
+        return unverified_reply(language)
+
+    language_name = LANGUAGE_NAMES.get(language, "English")
+    # .replace, not .format -- the prompt's JSON example has literal braces.
+    system_prompt = SYSTEM_PROMPT.replace("{language_name}", language_name)
 
     try:
         response = _get_client().chat.completions.create(
@@ -87,19 +94,19 @@ def synthesize_verdict(claim: str, matches: list[RetrievalMatch]) -> WebhookRepl
             temperature=0,
             response_format={"type": "json_object"},
             messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": _build_user_prompt(claim, matches)},
             ],
         )
         raw = response.choices[0].message.content or ""
     except Exception:
         logger.exception("LLM call failed; falling back to Unverified")
-        return UNVERIFIED_REPLY
+        return unverified_reply(language)
 
-    return _parse_reply(raw, matches)
+    return _parse_reply(raw, matches, language)
 
 
-def _parse_reply(raw: str, matches: list[RetrievalMatch]) -> WebhookReply:
+def _parse_reply(raw: str, matches: list[RetrievalMatch], language: str = "en") -> WebhookReply:
     valid_urls = {match.entry.source_url for match in matches}
     try:
         data = json.loads(raw)
@@ -109,7 +116,7 @@ def _parse_reply(raw: str, matches: list[RetrievalMatch]) -> WebhookReply:
         if verdict == "Unverified":
             return WebhookReply(
                 verdict="Unverified",
-                explanation=explanation or UNVERIFIED_REPLY.explanation,
+                explanation=explanation or unverified_reply(language).explanation,
                 source_url=None,
             )
 
@@ -127,4 +134,4 @@ def _parse_reply(raw: str, matches: list[RetrievalMatch]) -> WebhookReply:
         return WebhookReply(verdict=verdict, explanation=explanation, source_url=source_url)
     except (json.JSONDecodeError, KeyError, ValueError, TypeError):
         logger.exception("Could not trust LLM reply, falling back to Unverified. Raw: %s", raw)
-        return UNVERIFIED_REPLY
+        return unverified_reply(language)

@@ -28,13 +28,19 @@ Living checklist for the hackathon build. Updated as work lands — check items 
 - [x] Tests (`tests/test_llm.py`, 7 cases, fully mocked) — no-match skip, valid match, LLM self-downgrade to Unverified, hallucinated source_url rejected, malformed JSON, invalid verdict value, API error — all fall back to Unverified
 - [x] Live smoke test against the real dataset with a real API key: correct verdict/explanation/source_url on a strong match, correct "Unverified" on a weak match
 
-## Phase 3 — WhatsApp integration
+## Phase 3 — WhatsApp integration ✅ DONE (2026-09-14)
 
-- [ ] Twilio account + WhatsApp Sandbox signup (using free trial credit)
-- [ ] Public tunnel (ngrok or similar) for local webhook during dev
-- [ ] `/webhook` converted from JSON stub to Twilio's form-encoded request format, replying with TwiML
-- [ ] Language detection (English/Swahili) — reply in the language the user wrote in
-- [ ] Real end-to-end test: message sent on WhatsApp → bot reply received on WhatsApp
+- [x] Twilio account signup — done by user
+- [x] Account SID / Auth Token in `.env` (fetched from console.twilio.com, not shown in chat)
+- [x] Public tunnel: ngrok running (already installed + authenticated on this machine), tunnel at `https://elvin-fasciculate-wiley.ngrok-free.dev` → `localhost:8000` (this URL changes if ngrok is restarted — free tier doesn't keep a fixed subdomain)
+- [x] New `/whatsapp` route: Twilio's form-encoded request in, TwiML reply out (`app/whatsapp.py`, `app/main.py`) — kept the old JSON `/webhook` around too for quick manual testing
+- [x] Language detection (English/Swahili) — `app/language.py` (`langdetect`, deterministic seed); reply is generated in the detected language (LLM writes the explanation in-language; static Unverified/voice-note messages have pre-written EN/SW copies)
+- [x] Voice-note-without-transcription handled gracefully (bilingual "not supported yet" message) rather than erroring
+- [x] Tests: `tests/test_language.py`, `tests/test_whatsapp.py` (21 tests total now passing)
+- [x] Live smoke tests (Twilio-shaped form POSTs): English matched claim, Swahili matched claim (correct verdict + Swahili explanation + real source), media-only message, empty message — all correct
+- [x] Sandbox activated (accepted WhatsApp/Meta third-party terms, user confirmed), webhook URL saved in Twilio Console → Sandbox settings → "When a message comes in", method POST
+- [x] User joined the Sandbox from their own WhatsApp
+- [x] Real end-to-end test: message sent on WhatsApp → bot reply received on WhatsApp. Confirmed live: "coconut oil cures COVID-19" → correct FALSE verdict, correct explanation, correct real source_url, delivered back to the user's WhatsApp
 
 ## Phase 4 — Polish & multilingual/UX pass
 
