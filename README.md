@@ -41,7 +41,7 @@ User (WhatsApp)
 - [x] Twilio-shaped `/whatsapp` webhook + TwiML replies (`app/whatsapp.py`) — [connected to the real Sandbox](#connecting-the-real-whatsapp-sandbox) and verified with a live WhatsApp round-trip
 - [x] 5-language detection — English, Swahili, Hausa, Yoruba, Igbo (`app/language.py`, LLM-based — see BUILD_PLAN.md for why)
 - [x] Instant "⏳ Checking that for you..." reply while the real verdict is generated in the background and sent as a follow-up message
-- [ ] Phase 4 (remaining): onboarding message, POC disclaimer, voice notes (stretch)
+- [ ] Phase 4 (remaining): onboarding message, POC disclaimer, voice note transcription (stretch), image/screenshot claim extraction (stretch) — see BUILD_PLAN.md for the technical plan for both
 - [ ] Phase 5-6: Deliverables (video, deck, written summary), submission
 
 ## Running locally

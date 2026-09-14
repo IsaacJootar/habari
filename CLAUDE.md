@@ -94,7 +94,7 @@ Prompt that takes the claim + retrieved article(s) and returns a structured verd
 Wire Twilio WhatsApp Sandbox to the webhook. Full round-trip: user sends a message, bot replies with a verdict. Add language detection (English/Swahili).
 
 **Phase 4 — Polish & multilingual/UX pass** *(target: Day 4–5)*
-Onboarding message, optional voice note transcription, disclaimer that this is a hackathon POC, stress-test against the demo scenarios.
+Onboarding message, optional voice note transcription, optional image/screenshot claim extraction, disclaimer that this is a hackathon POC, stress-test against the demo scenarios. See `BUILD_PLAN.md` Phase 4 for the concrete technical plan for both media types.
 
 **Phase 5 — Deliverables: repo, video, deck** *(target: Day 5–6)*
 Clean README (problem, architecture diagram, how to run, limitations, next steps). Record a 2–3 minute demo video of real WhatsApp exchanges. Build the pitch deck.
