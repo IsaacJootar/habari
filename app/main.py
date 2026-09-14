@@ -1,30 +1,18 @@
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+from app.llm import synthesize_verdict
+from app.models import WebhookReply
 from app.retrieval import retrieve
+
+load_dotenv()
 
 app = FastAPI(title="Habari")
 
 
 class IncomingMessage(BaseModel):
     message: str
-
-
-class WebhookReply(BaseModel):
-    verdict: str
-    explanation: str
-    source_url: str | None = None
-
-
-UNVERIFIED_REPLY = WebhookReply(
-    verdict="Unverified",
-    explanation=(
-        "We couldn't find a matching fact-check for this yet. "
-        "Don't share it further until a trusted source confirms it — "
-        "try checking africacheck.org, pesacheck.org, or dubawa.org directly."
-    ),
-    source_url=None,
-)
 
 
 @app.get("/health")
@@ -34,19 +22,12 @@ def health() -> dict[str, str]:
 
 @app.post("/webhook", response_model=WebhookReply)
 def webhook(payload: IncomingMessage) -> WebhookReply:
-    """Phase 1 stub: takes a plain-text claim, returns the retrieval result.
+    """Phase 2 stub: takes a plain-text claim, returns an LLM-synthesized
+    verdict grounded in the retrieved article(s).
 
-    This does not yet call the LLM (Phase 2) or speak Twilio's webhook
-    format (Phase 3) — it exists so the retrieval step can be exercised
-    end-to-end before those layers are added.
+    Does not yet speak Twilio's webhook format (Phase 3) — it exists so
+    retrieval + LLM synthesis can be exercised end-to-end before that
+    layer is added.
     """
     matches = retrieve(payload.message)
-    if not matches:
-        return UNVERIFIED_REPLY
-
-    top = matches[0].entry
-    return WebhookReply(
-        verdict=top.verdict,
-        explanation=top.summary,
-        source_url=top.source_url,
-    )
+    return synthesize_verdict(payload.message, matches)

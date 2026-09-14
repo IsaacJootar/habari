@@ -32,12 +32,12 @@ User (WhatsApp)
 
 ## Status
 
-**Phase 1 (in progress):** FastAPI skeleton with a `/webhook` stub and a fuzzy-match retrieval function over a curated JSON dataset of real fact-check articles.
+**Phases 1-2 done.** See [BUILD_PLAN.md](BUILD_PLAN.md) for the full phase-by-phase checklist.
 
 - [x] FastAPI project skeleton (`app/main.py`)
-- [x] Retrieval function (`app/retrieval.py`) — `rapidfuzz` token-set matching, confidence-thresholded so a weak match falls back to "Unverified" instead of guessing
-- [ ] Curated dataset of 30-50 real fact-check articles (`data/factchecks.json`) — in progress
-- [ ] Phase 2: LLM verdict synthesis (OpenAI)
+- [x] Curated dataset of 40 real fact-check articles (`data/factchecks.json`)
+- [x] Retrieval function (`app/retrieval.py`) — tag-gated fuzzy match, so a claim only surfaces articles it actually shares a topic with, then ranks by text similarity
+- [x] LLM verdict synthesis (`app/llm.py`) — grounded strictly in the retrieved article(s); falls back to "Unverified" on any API error, malformed response, or if the model can't trace its answer back to a given article
 - [ ] Phase 3: Twilio WhatsApp Sandbox integration + language detection
 - [ ] Phase 4: Polish, multilingual pass, voice notes (stretch)
 - [ ] Phase 5-6: Deliverables (video, deck, written summary), submission
@@ -48,14 +48,14 @@ User (WhatsApp)
 python -m venv .venv
 .venv\Scripts\activate       # Windows
 pip install -r requirements.txt
-cp .env.example .env         # fill in OPENAI_API_KEY etc. once Phase 2 lands
+cp .env.example .env         # fill in OPENAI_API_KEY (Twilio vars come in Phase 3)
 uvicorn app.main:app --reload
 ```
 
-Manual check (Phase 1 — plain JSON in/out, not yet Twilio-shaped):
+Manual check (plain JSON in/out for now — Phase 3 makes this Twilio-shaped):
 
 ```bash
-curl -X POST http://127.0.0.1:8000/webhook -H "Content-Type: application/json" -d "{\"message\": \"I heard COVID vaccines have a microchip inside them\"}"
+curl -X POST http://127.0.0.1:8000/webhook -H "Content-Type: application/json" -d "{\"message\": \"someone shared an article saying Philippine scientists proved coconut oil cures COVID-19\"}"
 ```
 
 Run tests:

@@ -19,3 +19,20 @@ class FactCheckEntry(BaseModel):
 class RetrievalMatch(BaseModel):
     entry: FactCheckEntry
     score: float
+
+
+class WebhookReply(BaseModel):
+    verdict: Verdict
+    explanation: str
+    source_url: str | None = None
+
+
+UNVERIFIED_REPLY = WebhookReply(
+    verdict="Unverified",
+    explanation=(
+        "We couldn't find a matching fact-check for this yet. "
+        "Don't share it further until a trusted source confirms it — "
+        "try checking africacheck.org, pesacheck.org, or dubawa.org directly."
+    ),
+    source_url=None,
+)
