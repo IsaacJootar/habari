@@ -34,7 +34,7 @@ Living checklist for the hackathon build. Updated as work lands — check items 
 - [x] Account SID / Auth Token in `.env` (fetched from console.twilio.com, not shown in chat)
 - [x] Public tunnel: ngrok running (already installed + authenticated on this machine), tunnel at `https://elvin-fasciculate-wiley.ngrok-free.dev` → `localhost:8000` (this URL changes if ngrok is restarted — free tier doesn't keep a fixed subdomain)
 - [x] New `/whatsapp` route: Twilio's form-encoded request in, TwiML reply out (`app/whatsapp.py`, `app/main.py`) — kept the old JSON `/webhook` around too for quick manual testing
-- [x] Language detection (English/Swahili) — `app/language.py` (`langdetect`, deterministic seed); reply is generated in the detected language (LLM writes the explanation in-language; static Unverified/voice-note messages have pre-written EN/SW copies)
+- [x] Language detection (English/Swahili at the time) — reply generated in the detected language (LLM writes the explanation in-language; static Unverified/voice-note messages have pre-written copies). Superseded by the LLM-based 5-language detection below.
 - [x] Voice-note-without-transcription handled gracefully (bilingual "not supported yet" message) rather than erroring
 - [x] Tests: `tests/test_language.py`, `tests/test_whatsapp.py` (21 tests total now passing)
 - [x] Live smoke tests (Twilio-shaped form POSTs): English matched claim, Swahili matched claim (correct verdict + Swahili explanation + real source), media-only message, empty message — all correct
@@ -42,12 +42,16 @@ Living checklist for the hackathon build. Updated as work lands — check items 
 - [x] User joined the Sandbox from their own WhatsApp
 - [x] Real end-to-end test: message sent on WhatsApp → bot reply received on WhatsApp. Confirmed live: "coconut oil cures COVID-19" → correct FALSE verdict, correct explanation, correct real source_url, delivered back to the user's WhatsApp
 
-## Phase 4 — Polish & multilingual/UX pass
+## Phase 4 — Polish & multilingual/UX pass (started early, 2026-09-14)
 
+- [x] **Interim "please wait" reply.** Retrieval + the LLM call take a few seconds with no sign of life on WhatsApp otherwise. `/whatsapp` now replies instantly with "⏳ Checking that for you..." (localized), then does the real work in a FastAPI `BackgroundTask` and sends the actual verdict as a follow-up message via Twilio's REST API (`app/whatsapp.py: send_whatsapp_message`, needs `TWILIO_ACCOUNT_SID`/`TWILIO_AUTH_TOKEN`/`TWILIO_WHATSAPP_NUMBER` in `.env`, already set). Verified live on the real Sandbox.
+- [x] **Expanded from 2 to 5 languages: English, Swahili, Hausa, Yoruba, Igbo** (the three major Nigerian languages, per user request). Investigated two lightweight detectors first — `langdetect` (55 languages, no Hausa/Yoruba/Igbo profiles at all) and fastText's `lid.176` model (~900KB, no Hausa/Igbo labels either, and misclassified realistic un-toned Yoruba text) — neither covers these three reliably. Switched `app/language.py`'s `detect_language()` to an LLM call (gpt-4o-mini, five-way classification, defaults to English on any failure/low confidence) instead, which correctly identified all 5 languages in live testing and produces fluent in-language explanations, including on a real grounded verdict (Hausa "coconut oil cures COVID" claim → correct FALSE + real source, in Hausa). Costs one extra small LLM call per incoming message; accepted given the already-agreed budget approach.
 - [ ] Onboarding message for first-time users
 - [ ] Hackathon-POC disclaimer text in replies
 - [ ] Voice note transcription via Whisper (stretch goal)
 - [ ] Stress-test against the locked demo scenarios (health rumor, election claim, scam)
+
+**Caveat carried over from Phase 3:** all non-English static/label text (Swahili, and now Hausa/Yoruba/Igbo) is POC-quality, not reviewed by native speakers — worth a check before the real demo/submission.
 
 ## Phase 5 — Deliverables: repo, video, deck
 

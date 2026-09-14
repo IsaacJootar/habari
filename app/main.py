@@ -1,12 +1,18 @@
 from dotenv import load_dotenv
-from fastapi import FastAPI, Form, Response
+from fastapi import BackgroundTasks, FastAPI, Form, Response
 from pydantic import BaseModel
 
 from app.language import detect_language
 from app.llm import synthesize_verdict
 from app.models import WebhookReply, unverified_reply
 from app.retrieval import retrieve
-from app.whatsapp import VOICE_NOTE_UNSUPPORTED_TEXT, build_twiml, render_whatsapp_text
+from app.whatsapp import (
+    INTERIM_TEXT,
+    VOICE_NOTE_UNSUPPORTED_TEXT,
+    build_twiml,
+    render_whatsapp_text,
+    send_whatsapp_message,
+)
 
 load_dotenv()
 
@@ -32,13 +38,35 @@ def webhook(payload: IncomingMessage) -> WebhookReply:
     return synthesize_verdict(payload.message, matches, language=language)
 
 
+def _resolve_and_send(claim: str, to: str, language: str) -> None:
+    """Runs after the webhook has already replied with the interim message
+    -- does the slow retrieval + LLM work, then delivers the real verdict
+    as a separate WhatsApp message via Twilio's REST API."""
+    matches = retrieve(claim)
+    reply = synthesize_verdict(claim, matches, language=language)
+    text = render_whatsapp_text(reply, language)
+    send_whatsapp_message(to=to, body=text)
+
+
 @app.post("/whatsapp")
 async def whatsapp_webhook(
+    background_tasks: BackgroundTasks,
     Body: str = Form(default=""),
+    From: str = Form(default=""),
     NumMedia: str = Form(default="0"),
 ) -> Response:
     """Twilio's actual WhatsApp Sandbox webhook target: form-encoded
-    request in, TwiML (XML) reply out."""
+    request in, TwiML (XML) reply out.
+
+    A matched claim needs a retrieval + LLM round trip, which takes a few
+    seconds with no other sign of life on WhatsApp meanwhile -- so this
+    replies immediately with a short "Checking that for you..." message
+    and does the real work in the background, sending the actual verdict
+    as a follow-up message once it's ready.
+
+    Language (English/Swahili/Hausa/Yoruba/Igbo) is detected automatically
+    per message via the LLM -- see app.language.detect_language.
+    """
     claim = Body.strip()
 
     if not claim:
@@ -47,7 +75,6 @@ async def whatsapp_webhook(
         return Response(content=build_twiml(text), media_type="application/xml")
 
     language = detect_language(claim)
-    matches = retrieve(claim)
-    reply = synthesize_verdict(claim, matches, language=language)
-    text = render_whatsapp_text(reply, language)
-    return Response(content=build_twiml(text), media_type="application/xml")
+    background_tasks.add_task(_resolve_and_send, claim, From, language)
+    interim_text = INTERIM_TEXT.get(language, INTERIM_TEXT["en"])
+    return Response(content=build_twiml(interim_text), media_type="application/xml")

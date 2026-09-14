@@ -32,14 +32,16 @@ User (WhatsApp)
 
 ## Status
 
-**Phases 1-3 done — live on the WhatsApp Sandbox.** See [BUILD_PLAN.md](BUILD_PLAN.md) for the full phase-by-phase checklist.
+**Phases 1-3 done, Phase 4 started early — live on the WhatsApp Sandbox.** See [BUILD_PLAN.md](BUILD_PLAN.md) for the full phase-by-phase checklist.
 
 - [x] FastAPI project skeleton (`app/main.py`)
 - [x] Curated dataset of 40 real fact-check articles (`data/factchecks.json`)
 - [x] Retrieval function (`app/retrieval.py`) — tag-gated fuzzy match, so a claim only surfaces articles it actually shares a topic with, then ranks by text similarity
 - [x] LLM verdict synthesis (`app/llm.py`) — grounded strictly in the retrieved article(s); falls back to "Unverified" on any API error, malformed response, or if the model can't trace its answer back to a given article
-- [x] Twilio-shaped `/whatsapp` webhook + TwiML replies (`app/whatsapp.py`), English/Swahili language detection (`app/language.py`) — [connected to the real Sandbox](#connecting-the-real-whatsapp-sandbox) and verified with a live WhatsApp round-trip
-- [ ] Phase 4: Polish, multilingual pass, voice notes (stretch)
+- [x] Twilio-shaped `/whatsapp` webhook + TwiML replies (`app/whatsapp.py`) — [connected to the real Sandbox](#connecting-the-real-whatsapp-sandbox) and verified with a live WhatsApp round-trip
+- [x] 5-language detection — English, Swahili, Hausa, Yoruba, Igbo (`app/language.py`, LLM-based — see BUILD_PLAN.md for why)
+- [x] Instant "⏳ Checking that for you..." reply while the real verdict is generated in the background and sent as a follow-up message
+- [ ] Phase 4 (remaining): onboarding message, POC disclaimer, voice notes (stretch)
 - [ ] Phase 5-6: Deliverables (video, deck, written summary), submission
 
 ## Running locally

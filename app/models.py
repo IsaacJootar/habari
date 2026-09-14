@@ -49,9 +49,49 @@ UNVERIFIED_REPLY_SW = WebhookReply(
     source_url=None,
 )
 
+# POC-quality translations, not reviewed by native speakers yet -- worth a
+# proper check before the demo (see BUILD_PLAN.md Phase 4).
+UNVERIFIED_REPLY_HA = WebhookReply(
+    verdict="Unverified",
+    explanation=(
+        "Ba mu sami wani bincike da ya dace da wannan ba tukuna. "
+        "Kada ka ci gaba da yada wannan sakon har sai wata majiya amintacciya ta tabbatar da shi — "
+        "duba africacheck.org, pesacheck.org, ko dubawa.org kai tsaye."
+    ),
+    source_url=None,
+)
+
+UNVERIFIED_REPLY_YO = WebhookReply(
+    verdict="Unverified",
+    explanation=(
+        "A ò rí ìròyìn tí ó bá èyí mu síbẹ̀. "
+        "Má ṣe pín ìhìn yìí síwájú sí i kí a tó jẹ́rìí i rẹ̀ láti ọ̀dọ̀ orísun tí a gbẹ́kẹ̀lé — "
+        "ṣàyẹ̀wò africacheck.org, pesacheck.org, tàbí dubawa.org tààrà."
+    ),
+    source_url=None,
+)
+
+UNVERIFIED_REPLY_IG = WebhookReply(
+    verdict="Unverified",
+    explanation=(
+        "Anyị achọtabeghị nyocha kwesịrị ekwesị maka nke a. "
+        "Ekesala ozi a ọzọ ruo mgbe isi iyi a na-atụkwasị obi kwadoro ya — "
+        "lelee africacheck.org, pesacheck.org, ma ọ bụ dubawa.org."
+    ),
+    source_url=None,
+)
+
 # Kept for backwards compatibility with existing callers/tests that assume English.
 UNVERIFIED_REPLY = UNVERIFIED_REPLY_EN
 
+_UNVERIFIED_BY_LANGUAGE = {
+    "en": UNVERIFIED_REPLY_EN,
+    "sw": UNVERIFIED_REPLY_SW,
+    "ha": UNVERIFIED_REPLY_HA,
+    "yo": UNVERIFIED_REPLY_YO,
+    "ig": UNVERIFIED_REPLY_IG,
+}
+
 
 def unverified_reply(language: str = "en") -> WebhookReply:
-    return UNVERIFIED_REPLY_SW if language == "sw" else UNVERIFIED_REPLY_EN
+    return _UNVERIFIED_BY_LANGUAGE.get(language, UNVERIFIED_REPLY_EN)
