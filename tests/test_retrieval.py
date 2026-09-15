@@ -55,3 +55,55 @@ def test_matches_are_sorted_best_first(monkeypatch):
     assert matches[0].entry.id == "test-mpesa-scam"
     scores = [m.score for m in matches]
     assert scores == sorted(scores, reverse=True)
+
+
+def test_short_common_word_does_not_false_substring_match():
+    # A real bug: claim word "it" is a literal substring of "politics" and
+    # "citizenship" ("pol-IT-ics", "cIT-izenship") -- without a minimum
+    # length guard, an unrelated article tagged "politics" would gate in
+    # for any claim that merely contains the word "it".
+    assert retrieval._words_match("politics", "it") is False
+    assert retrieval._words_match("citizenship", "it") is False
+    assert retrieval._words_match("constitution", "it") is False
+
+
+def test_meaningful_word_variant_still_matches_via_substring():
+    # The fix that catches word-form variants (a fuzzy-ratio-only check
+    # missed "scam" vs "scammed", scoring ~73, below the typo threshold)
+    # must still work for real 4+-letter roots.
+    assert retrieval._words_match("scam", "scammed") is True
+    assert retrieval._words_match("vaccine", "vaccines") is True
+
+
+def test_ranking_prefers_more_matching_tags_over_a_fuzzy_score_tie(monkeypatch):
+    # Reproduces a real false-positive found when the dataset grew: two
+    # articles that only share one generic tag ("ghana") can tie exactly
+    # on fuzzy score, letting an unrelated article win purely on list
+    # order. The correct, more topically specific article (2 matching
+    # tags: "ghana" and "curriculum") must be ranked first.
+    entries = [
+        FactCheckEntry(
+            id="test-wrong-topic-one-tag",
+            title="Unrelated claim that happens to mention Ghana",
+            summary="A completely different story that only shares the word Ghana with the claim below.",
+            verdict="False",
+            source_url="https://example.org/wrong",
+            topic_tags=["general", "scam", "election", "ghana", "phishing"],
+            country="Ghana",
+            source="Dubawa",
+        ),
+        FactCheckEntry(
+            id="test-right-topic-two-tags",
+            title="False! Kindergarten pupils will not learn Chinese under Ghana's new curriculum",
+            summary="The claim that kindergarten pupils will learn Chinese under Ghana's new basic school curriculum is false.",
+            verdict="False",
+            source_url="https://example.org/right",
+            topic_tags=["education", "ghana", "curriculum"],
+            country="Ghana",
+            source="GhanaFact",
+        ),
+    ]
+    monkeypatch.setattr(retrieval, "load_dataset", lambda: entries)
+    matches = retrieval.retrieve("is it true kindergarten pupils will learn chinese in the new Ghana curriculum")
+    assert matches
+    assert matches[0].entry.id == "test-right-topic-two-tags"

@@ -17,6 +17,20 @@ Living checklist for the hackathon build. Updated as work lands — check items 
 
 **Known caveat:** the 13 Africa Check dataset entries were cross-verified via search rather than a direct page fetch (site blocked automated access) — worth a manual spot-check before submission.
 
+### Source expansion (added 2026-09-15)
+
+**Decision:** user raised a real concern — limiting to 3 fact-checkers means a genuine rumor could go unmatched and come back "Unverified" more often than it should. The fix is NOT to let the LLM guess when nothing matches (that would break the core trust design in `CLAUDE.md`) — it's to widen the pool of real, verified sources and deepen the article count. Agreed direction: grow the source roster over time, always vetting each new organization's credibility (ideally IFCN-signatory status) before adding it, never loosen the grounding rule itself.
+
+- [x] **Verified and added GhanaFact and AFP Fact Check.** Dataset grew from 40 to **64 entries** (all 40 originals unchanged): 17 PesaCheck, 15 GhanaFact, 13 Africa Check, 10 Dubawa, 9 AFP Fact Check.
+  - **GhanaFact** — confirmed IFCN-verified signatory (Ghana's first full-time fact-checker to sign the Code of Principles, run by FactSpace West Africa). 15 entries, all verified by direct page fetch.
+  - **AFP Fact Check** — confirmed IFCN-verified signatory with an active Poynter Code of Principles profile and named Africa-based staff. 9 entries; `factcheck.afp.com` blocks automated fetches (Akamai), so 2 were verified via live wire-service mirrors and 7 via cross-referencing exact document IDs/authors/dates against independent search results — same fallback method used for the original Africa Check entries.
+  - **ZimFact — dropped, not used.** Credible on paper (est. 2018, Voluntary Media Council of Zimbabwe), but its site (`zimfact.org`) is currently down (hosting-suspended page on every URL tried) — excluded entirely rather than cited with a broken/unverifiable link. One other candidate article (an AI-generated herbal-cure video claim) was also dropped for lack of a pinned, verifiable URL. This is the right call per the "never fabricate" rule — a source being reputable historically doesn't make it usable if it can't be verified right now.
+- [x] **Found and fixed two real retrieval bugs surfaced by the larger, more diverse dataset** (see `app/retrieval.py`, `tests/test_retrieval.py` for the regression tests):
+  1. Short common claim words (e.g. "it") were matching as a false substring inside unrelated tag words ("pol-IT-ics", "cIT-izenship") — a Ghana-curriculum claim was gating in and nearly losing to a completely unrelated Ghana-election article. Fixed with a minimum length guard (4 chars) before substring matching applies.
+  2. Ranking previously used fuzzy score alone, which ties frequently (many pairs scored an identical 85.5) — ties were being broken by list order, not relevance. Fixed by ranking primarily on *how many* tags matched (more topical overlap wins) and using fuzzy score only as a tie-breaker within that.
+  - Also widened `top_k` from 3 to 5 candidates handed to the LLM, since a generic claim can legitimately tie among several real, similarly-tagged articles — a wider pool reduces the chance the actually-correct one gets excluded by a tie it didn't need to lose.
+  - Verified live end-to-end after the fix: both previously-broken claims now correctly ground in the right article with the exact right source_url.
+
 ## Phase 2 — LLM verdict logic ✅ DONE (2026-09-14)
 
 - [x] `app/llm.py` — OpenAI API wrapper (`gpt-4o-mini`, JSON-mode structured output). Chose `gpt-4o-mini` over `gpt-4o`: this is a grounded-summarization task (rephrase an already-published verdict from retrieved text), not one needing frontier reasoning. At $0.15/1M input + $0.60/1M output tokens, each verdict call costs a small fraction of a cent — dev testing plus a live demo stays well inside the $5 OpenAI free-trial credit.
@@ -62,9 +76,11 @@ Living checklist for the hackathon build. Updated as work lands — check items 
 
 ## Phase 5 — Deliverables: repo, video, deck
 
+- [x] **Judge onboarding: QR code + manual join, both shown.** Generated `docs/whatsapp-sandbox-qr.png` from the verified real join link (`wa.me/14155238886?text=join%20stage-begun` — same number/phrase confirmed live in Phase 3), decoded it back to confirm it's correct before adding to the repo. README's Sandbox section now shows both the QR scan and the manual `join stage-begun` text as a fallback.
 - [ ] README finalized (architecture diagram, how to run, limitations, next steps)
 - [ ] 2-3 minute demo video of real WhatsApp exchanges
 - [ ] Pitch deck
+- [ ] **Deployment decision:** current setup only works while the dev machine's local server + ngrok tunnel are running — not viable for judges to try unattended. User has both Namecheap and AWS space available for a real deployment; needs a decision on which to use and the actual deploy work, before or alongside the video/deck.
 
 ## Phase 6 — Written summary & submit
 

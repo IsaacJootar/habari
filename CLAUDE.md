@@ -75,12 +75,14 @@ User (WhatsApp)
 - **Secrets:** `.env` file (e.g. `OPENAI_API_KEY`), excluded via `.gitignore` from the very first commit.
 
 ### Data source
-Manually curated dataset of real articles from:
+Manually curated dataset of real articles from credible, verified fact-checking organizations (ideally IFCN — International Fact-Checking Network — signatories). Started with:
 - Africa Check (africacheck.org)
 - PesaCheck (pesacheck.org) — East Africa, strong Kenya relevance
 - Dubawa (dubawa.org)
 
-Each entry: `{ title, summary, verdict, source_url, topic_tags, country }`.
+**Source roster is expected to grow — this is the answer to "what if a rumor isn't covered by these three," not loosening the grounding rule.** The one invariant that never changes: Habari only ever cites real, published fact-checks from credible organizations, never general AI knowledge. Coverage gaps get fixed by adding more verified sources and more articles per source (see BUILD_PLAN.md for the current roster and what's been added since the initial three), not by letting the LLM guess. See `data/factchecks.json` for the live roster.
+
+Each entry: `{ id, title, summary, verdict, source_url, topic_tags, country, source }`.
 
 ## 7. Build Plan (Sept 14 → Sept 21, compressed — Claude Code can move faster than one phase per day)
 

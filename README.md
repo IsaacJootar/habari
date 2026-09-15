@@ -6,7 +6,7 @@ Built for the OSF × Andela Hackathon (Stability & Social Cohesion track).
 
 ## Problem
 
-Verified information already exists from credible regional fact-checkers — Africa Check, PesaCheck (Kenya/Tanzania/Uganda), Dubawa (Nigeria) — but it's scattered across websites people don't know to visit. Misinformation, meanwhile, spreads fastest on WhatsApp, the platform people already use daily, even with limited data or bandwidth.
+Verified information already exists from credible fact-checking organizations — Africa Check, PesaCheck (Kenya/Tanzania/Uganda), Dubawa (Nigeria), and a growing roster of others (see [Sources](#sources) below) — but it's scattered across websites people don't know to visit. Misinformation, meanwhile, spreads fastest on WhatsApp, the platform people already use daily, even with limited data or bandwidth.
 
 ## How it works
 
@@ -24,19 +24,33 @@ User (WhatsApp)
    → Backend (FastAPI)
        1. Classify incoming message (topic, language) — LLM call
        2. Retrieve — fuzzy-match claim against curated dataset of real
-          fact-check articles (Africa Check / PesaCheck / Dubawa)
+          fact-check articles from verified fact-checking organizations
        3. LLM synthesizes verdict + explanation, grounded ONLY in the
           retrieved article. No confident match → "Unverified."
    → Reply sent back on WhatsApp
 ```
+
+## Sources
+
+Habari only ever cites real, published fact-checks from credible, verified organizations (ideally [IFCN](https://www.poynter.org/ifcn/) signatories) — it never lets the LLM guess from general knowledge. If a rumor isn't covered by any curated source, the honest answer is "Unverified," not a fabricated verdict.
+
+The roster started with three East/West African fact-checkers and is actively growing — coverage gaps get fixed by adding more verified sources and more articles per source, not by loosening that rule. Currently 64 articles across 5 sources:
+
+- [Africa Check](https://africacheck.org) — Pan-African
+- [PesaCheck](https://pesacheck.org) — Kenya, Tanzania, Uganda
+- [Dubawa](https://dubawa.org) — Nigeria and West Africa
+- [GhanaFact](https://ghanafact.com) — Ghana
+- [AFP Fact Check](https://factcheck.afp.com) — Pan-African desk
+
+One candidate source (ZimFact) was investigated and deliberately **not** added — credible on paper, but its site is currently down, so no article could be verified. Excluded rather than cited with a broken link; see `BUILD_PLAN.md` Phase 1 for the full reasoning.
 
 ## Status
 
 **Phases 1-3 done, Phase 4 started early — live on the WhatsApp Sandbox.** See [BUILD_PLAN.md](BUILD_PLAN.md) for the full phase-by-phase checklist.
 
 - [x] FastAPI project skeleton (`app/main.py`)
-- [x] Curated dataset of 40 real fact-check articles (`data/factchecks.json`)
-- [x] Retrieval function (`app/retrieval.py`) — tag-gated fuzzy match, so a claim only surfaces articles it actually shares a topic with, then ranks by text similarity
+- [x] Curated dataset of 64 real fact-check articles across 5 sources (`data/factchecks.json`) — see [Sources](#sources)
+- [x] Retrieval function (`app/retrieval.py`) — tag-gated fuzzy match, so a claim only surfaces articles it actually shares a topic with, ranked by how many tags matched (then fuzzy text similarity as a tie-breaker)
 - [x] LLM verdict synthesis (`app/llm.py`) — grounded strictly in the retrieved article(s); falls back to "Unverified" on any API error, malformed response, or if the model can't trace its answer back to a given article
 - [x] Twilio-shaped `/whatsapp` webhook + TwiML replies (`app/whatsapp.py`) — [connected to the real Sandbox](#connecting-the-real-whatsapp-sandbox) and verified with a live WhatsApp round-trip
 - [x] 5-language detection — English, Swahili, Hausa, Yoruba, Igbo (`app/language.py`, LLM-based — see BUILD_PLAN.md for why)
@@ -69,7 +83,11 @@ curl -X POST http://127.0.0.1:8000/whatsapp -d "Body=someone shared an article s
 ### Connecting the real WhatsApp Sandbox
 
 1. In the [Twilio Console](https://console.twilio.com), copy your **Account SID** and **Auth Token** (shown on the dashboard homepage) into `.env` as `TWILIO_ACCOUNT_SID` / `TWILIO_AUTH_TOKEN`.
-2. Under Messaging → Try it out → **WhatsApp Sandbox**, note the sandbox number and join code. From your own WhatsApp, message the sandbox number with the given `join <code>` phrase — this opts your number in for testing.
+2. Under Messaging → Try it out → **WhatsApp Sandbox**, note the sandbox number and join code (currently `+1 415 523 8886` / `join stage-begun`, but these can change if the sandbox is reset — check the Twilio Console for the current ones). Join it either way:
+   - **Scan the QR code** below with your phone — opens WhatsApp with the join message pre-filled, just tap send.
+     <br>![WhatsApp Sandbox join QR code](docs/whatsapp-sandbox-qr.png)
+   - **Or message it manually:** from your own WhatsApp, send `join stage-begun` to `+1 415 523 8886`.
+   Both do exactly the same thing — the QR code just encodes the same `join` message as a scannable link.
 3. Habari needs to be reachable from the internet for Twilio to call it. Run a tunnel, e.g. [ngrok](https://ngrok.com) (free account required — one-time `ngrok config add-authtoken <token>` after signing up):
    ```bash
    ngrok http 8000
