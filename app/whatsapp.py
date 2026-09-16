@@ -49,12 +49,37 @@ VERDICT_LABELS = {
 
 SOURCE_LABEL = {"en": "Source", "sw": "Chanzo", "ha": "Tushen", "yo": "Orísun", "ig": "Isi iyi"}
 
-# Sent when a message carries audio/media but no text -- voice-note
-# transcription (Whisper) is a Phase 4 stretch goal, not wired up yet.
-VOICE_NOTE_UNSUPPORTED_TEXT = (
+# Sent when a message carries media Habari doesn't handle at all (video,
+# documents, stickers, etc.) -- audio and images ARE supported (see
+# app/media.py), this is only for everything else.
+UNSUPPORTED_MEDIA_TEXT = (
     "*Habari*\n\n"
-    "We can't check voice notes yet — please type or paste the claim as text.\n\n"
-    "Bado hatuwezi kuangalia ujumbe wa sauti — tafadhali andika au bandika dai kwa maandishi."
+    "We can check text, voice notes, or images — please send your claim as one of those.\n\n"
+    "Tunaweza kuangalia maandishi, ujumbe wa sauti, au picha — tafadhali tuma dai lako kwa njia mojawapo."
+)
+
+# Sent (from the background task) when a voice note was downloaded but
+# couldn't be transcribed, or transcription came back empty.
+AUDIO_UNREADABLE_TEXT = (
+    "*Habari*\n\n"
+    "Sorry, we couldn't understand that voice note — please try again or type your claim instead.\n\n"
+    "Samahani, hatukuelewa ujumbe huo wa sauti — jaribu tena au andika dai lako."
+)
+
+# Sent (from the background task) when an image was downloaded but no
+# readable claim/text could be found in it.
+IMAGE_UNREADABLE_TEXT = (
+    "*Habari*\n\n"
+    "Sorry, we couldn't find any readable claim in that image — please try again or type your claim instead.\n\n"
+    "Samahani, hatukupata dai lolote linalosomeka kwenye picha hiyo — jaribu tena au andika dai lako."
+)
+
+# Sent (from the background task) when the media file itself couldn't be
+# downloaded from Twilio at all (network error, expired URL, etc.).
+MEDIA_DOWNLOAD_FAILED_TEXT = (
+    "*Habari*\n\n"
+    "Sorry, we couldn't download that file — please try sending it again.\n\n"
+    "Samahani, hatukuweza kupakua faili hiyo — tafadhali jaribu tena."
 )
 
 

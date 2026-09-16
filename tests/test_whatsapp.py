@@ -12,15 +12,134 @@ def test_health():
     assert resp.json() == {"status": "ok"}
 
 
-def test_whatsapp_media_with_no_text_returns_voice_note_message(monkeypatch):
+def test_whatsapp_unsupported_media_type_returns_unsupported_message(monkeypatch):
     def _boom(*args, **kwargs):
-        raise AssertionError("synthesize_verdict should not be called for a media-only message")
+        raise AssertionError("synthesize_verdict should not be called for an unsupported media message")
 
     monkeypatch.setattr(main, "synthesize_verdict", _boom)
-    resp = client.post("/whatsapp", data={"Body": "", "NumMedia": "1"})
+    # video/mp4 (or any non-audio/non-image type) isn't handled at all.
+    resp = client.post(
+        "/whatsapp", data={"Body": "", "NumMedia": "1", "MediaContentType0": "video/mp4"}
+    )
     assert resp.status_code == 200
     assert "text/xml" in resp.headers["content-type"] or "application/xml" in resp.headers["content-type"]
-    assert "voice note" in resp.text.lower()
+    assert "voice note" in resp.text.lower() or "voice notes" in resp.text.lower()
+
+
+def test_whatsapp_audio_message_transcribed_and_checked(monkeypatch):
+    reply = WebhookReply(verdict="False", explanation="This is false.", source_url="https://example.org/a")
+    sent = {}
+
+    monkeypatch.setattr(main, "download_twilio_media", lambda url: b"fake-audio-bytes")
+    monkeypatch.setattr(main, "transcribe_audio", lambda data, ctype: "I heard a rumor on the radio")
+    monkeypatch.setattr(main, "detect_language", lambda claim: "en")
+    monkeypatch.setattr(main, "retrieve", lambda claim: ["fake-match"])
+    monkeypatch.setattr(main, "live_search", lambda claim: [])
+    monkeypatch.setattr(main, "synthesize_verdict", lambda claim, matches, live_results, language="en": reply)
+    monkeypatch.setattr(main, "send_whatsapp_message", lambda to, body: sent.update(to=to, body=body))
+
+    resp = client.post(
+        "/whatsapp",
+        data={
+            "Body": "",
+            "NumMedia": "1",
+            "MediaContentType0": "audio/ogg",
+            "MediaUrl0": "https://api.twilio.com/media/voice1",
+            "From": "whatsapp:+254733333333",
+        },
+    )
+    assert resp.status_code == 200
+    assert "Checking" in resp.text
+    # TestClient runs background tasks before returning.
+    assert sent["to"] == "whatsapp:+254733333333"
+    assert "FALSE" in sent["body"]
+
+
+def test_whatsapp_audio_transcription_fails_sends_unreadable_message(monkeypatch):
+    sent = {}
+    monkeypatch.setattr(main, "download_twilio_media", lambda url: b"fake-audio-bytes")
+    monkeypatch.setattr(main, "transcribe_audio", lambda data, ctype: None)
+    monkeypatch.setattr(main, "send_whatsapp_message", lambda to, body: sent.update(to=to, body=body))
+
+    resp = client.post(
+        "/whatsapp",
+        data={
+            "Body": "",
+            "NumMedia": "1",
+            "MediaContentType0": "audio/ogg",
+            "MediaUrl0": "https://api.twilio.com/media/voice1",
+            "From": "whatsapp:+254744444444",
+        },
+    )
+    assert resp.status_code == 200
+    assert "couldn't understand that voice note" in sent["body"]
+
+
+def test_whatsapp_image_message_extracted_and_checked(monkeypatch):
+    reply = WebhookReply(verdict="Misleading", explanation="Missing context.", source_url="https://example.org/b")
+    sent = {}
+
+    monkeypatch.setattr(main, "download_twilio_media", lambda url: b"fake-image-bytes")
+    monkeypatch.setattr(main, "extract_claim_from_image", lambda data, ctype: "Government bans okada riders")
+    monkeypatch.setattr(main, "detect_language", lambda claim: "en")
+    monkeypatch.setattr(main, "retrieve", lambda claim: ["fake-match"])
+    monkeypatch.setattr(main, "live_search", lambda claim: [])
+    monkeypatch.setattr(main, "synthesize_verdict", lambda claim, matches, live_results, language="en": reply)
+    monkeypatch.setattr(main, "send_whatsapp_message", lambda to, body: sent.update(to=to, body=body))
+
+    resp = client.post(
+        "/whatsapp",
+        data={
+            "Body": "",
+            "NumMedia": "1",
+            "MediaContentType0": "image/jpeg",
+            "MediaUrl0": "https://api.twilio.com/media/img1",
+            "From": "whatsapp:+254755555555",
+        },
+    )
+    assert resp.status_code == 200
+    assert "Checking" in resp.text
+    assert sent["to"] == "whatsapp:+254755555555"
+    assert "MISLEADING" in sent["body"]
+
+
+def test_whatsapp_image_extraction_fails_sends_unreadable_message(monkeypatch):
+    sent = {}
+    monkeypatch.setattr(main, "download_twilio_media", lambda url: b"fake-image-bytes")
+    monkeypatch.setattr(main, "extract_claim_from_image", lambda data, ctype: None)
+    monkeypatch.setattr(main, "send_whatsapp_message", lambda to, body: sent.update(to=to, body=body))
+
+    resp = client.post(
+        "/whatsapp",
+        data={
+            "Body": "",
+            "NumMedia": "1",
+            "MediaContentType0": "image/jpeg",
+            "MediaUrl0": "https://api.twilio.com/media/img1",
+            "From": "whatsapp:+254766666666",
+        },
+    )
+    assert resp.status_code == 200
+    assert "couldn't find any readable claim" in sent["body"]
+
+
+def test_whatsapp_media_download_failure_sends_download_failed_message(monkeypatch):
+    sent = {}
+    monkeypatch.setattr(main, "download_twilio_media", lambda url: None)
+    monkeypatch.setattr(main, "send_whatsapp_message", lambda to, body: sent.update(to=to, body=body))
+
+    resp = client.post(
+        "/whatsapp",
+        data={
+            "Body": "",
+            "NumMedia": "1",
+            "MediaContentType0": "audio/ogg",
+            "MediaUrl0": "https://api.twilio.com/media/voice1",
+            "From": "whatsapp:+254777777777",
+        },
+    )
+    assert resp.status_code == 200
+    assert "couldn't download that file" in sent["body"]
 
 
 def test_whatsapp_empty_message_no_media_returns_english_unverified(monkeypatch):

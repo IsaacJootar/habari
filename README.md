@@ -1,6 +1,6 @@
 # Habari
 
-**Habari** ("news" in Swahili) is a WhatsApp bot that helps people check whether a rumor, claim, or screenshot they've received is true — by routing it to real fact-checks from trusted African fact-checking organizations, never by guessing.
+**Habari** ("news" in Swahili) is a WhatsApp bot that helps people check whether a rumor, claim, screenshot, or voice note they've received is true — by routing it to real fact-checks from trusted African fact-checking organizations, never by guessing.
 
 Built for the OSF × Andela Hackathon (Stability & Social Cohesion track).
 
@@ -10,7 +10,7 @@ Verified information already exists from credible fact-checking organizations �
 
 ## How it works
 
-A user forwards a message to the bot on WhatsApp. Habari replies with:
+A user forwards a message to the bot on WhatsApp — typed text, a voice note, or a screenshot/image, all handled the same way. Habari replies with:
 - A verdict: **True / False / Misleading / Unverified**
 - A 2-3 sentence plain-language explanation
 - A link to the trusted source article
@@ -71,7 +71,7 @@ One candidate source (ZimFact) was investigated and deliberately **not** added �
 
 ## Status
 
-**Phases 1-3 done, Phase 4 core done — live on the WhatsApp Sandbox, stress-tested.** See [BUILD_PLAN.md](BUILD_PLAN.md) for the full phase-by-phase checklist.
+**Phases 1-4 done (including both stretch goals) — live on the WhatsApp Sandbox, stress-tested.** See [BUILD_PLAN.md](BUILD_PLAN.md) for the full phase-by-phase checklist.
 
 - [x] FastAPI project skeleton (`app/main.py`)
 - [x] Curated dataset of 64 real fact-check articles across 5 sources (`data/factchecks.json`) — see [Sources](#sources)
@@ -84,7 +84,8 @@ One candidate source (ZimFact) was investigated and deliberately **not** added �
 - [x] National newspaper "check here too" suggestions on Unverified replies (`app/national_news.py`), 4 sample countries
 - [x] Onboarding message + POC disclaimer for first-time senders (`app/session.py`, `app/whatsapp.py`)
 - [x] Stress-tested against the locked demo scenarios (health rumor, election claim, scam) plus an unverifiable claim and a Swahili variant — found and fixed a real retrieval bug in the process (see BUILD_PLAN.md Phase 4)
-- [ ] Phase 4 (remaining, stretch only): voice note transcription, image/screenshot claim extraction — see BUILD_PLAN.md for the technical plan for both
+- [x] Voice note transcription (`app/media.py`) — a voice note gets transcribed (OpenAI `gpt-4o-mini-transcribe`) and the text runs through the normal pipeline; verified with real synthesized speech, not just mocks
+- [x] Image/screenshot claim extraction (`app/media.py`) — the visible claim text gets read out of the image (gpt-4o-mini, multimodal) and runs through the normal pipeline; verified with a real generated test image, not just mocks
 - [ ] Phase 5-6: Deliverables (video, deck, written summary), submission
 
 ## Running locally
