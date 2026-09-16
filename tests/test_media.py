@@ -11,12 +11,13 @@ class _FakeResponse:
             raise RuntimeError(f"HTTP {self.status_code}")
 
 
-def test_download_twilio_media_uses_basic_auth(monkeypatch):
+def test_download_twilio_media_uses_basic_auth_and_follows_redirects(monkeypatch):
     captured = {}
 
-    def fake_get(url, auth=None, timeout=None):
+    def fake_get(url, auth=None, timeout=None, follow_redirects=None):
         captured["url"] = url
         captured["auth"] = auth
+        captured["follow_redirects"] = follow_redirects
         return _FakeResponse(content=b"audio-bytes")
 
     monkeypatch.setattr(media.httpx, "get", fake_get)
@@ -26,6 +27,10 @@ def test_download_twilio_media_uses_basic_auth(monkeypatch):
     result = media.download_twilio_media("https://api.twilio.com/media/123")
     assert result == b"audio-bytes"
     assert captured["auth"] == ("ACxxx", "token")
+    # Twilio media URLs 307-redirect to the real file location -- httpx
+    # doesn't follow redirects by default, which broke every real voice
+    # note/image download until this was set explicitly.
+    assert captured["follow_redirects"] is True
 
 
 def test_download_twilio_media_missing_credentials_returns_none(monkeypatch):

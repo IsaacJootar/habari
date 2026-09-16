@@ -21,7 +21,7 @@ Habari is a **router and summarizer on top of existing trusted fact-checkers** �
 ### The flow, in plain terms
 
 1. **Someone sends a message on WhatsApp** — a claim, a rumor, a screenshot they retyped — to the Habari number.
-2. **Twilio hands it to our server, which replies right away** with "⏳ Checking that for you..." (all 5 languages at once, so it's genuinely instant — no AI call gates this step). The person sees something happen immediately instead of silence.
+2. **Twilio hands it to our server, which replies right away** with "⏳ Checking that for you..." (English only — no AI call gates this step, so it's genuinely instant). The person sees something happen immediately instead of silence.
 3. **Then, behind the scenes, in order:**
    - **Figure out the language** — a quick AI call reads the message and decides: English, Swahili, Hausa, Yoruba, or Igbo.
    - **Check our own saved file** — fast keyword search through the curated dataset for an obvious match.
@@ -79,7 +79,7 @@ One candidate source (ZimFact) was investigated and deliberately **not** added �
 - [x] LLM verdict synthesis (`app/llm.py`) — grounded strictly in the retrieved article(s); falls back to "Unverified" on any API error, malformed response, or if the model can't trace its answer back to a given article
 - [x] Twilio-shaped `/whatsapp` webhook + TwiML replies (`app/whatsapp.py`) — [connected to the real Sandbox](#connecting-the-real-whatsapp-sandbox) and verified with a live WhatsApp round-trip
 - [x] 5-language detection — English, Swahili, Hausa, Yoruba, Igbo (`app/language.py`, LLM-based — see BUILD_PLAN.md for why)
-- [x] Instant, language-agnostic "⏳ Checking that for you..." reply while the real verdict is generated in the background and sent as a follow-up message (language detection itself moved to the background too — it's an LLM call and was quietly blocking the "instant" reply until this was caught and fixed)
+- [x] Instant "⏳ Checking that for you..." reply (English only, by design) while the real verdict is generated in the background and sent as a follow-up message (language detection itself moved to the background too — it's an LLM call and was quietly blocking the "instant" reply until this was caught and fixed)
 - [x] Live search (`app/live_search.py`) for Dubawa and GhanaFact, so a claim doesn't need to already be in the curated dataset — verified live against a real story not in the 64-entry file
 - [x] National newspaper "check here too" suggestions on Unverified replies (`app/national_news.py`), 4 sample countries
 - [x] Onboarding message + POC disclaimer for first-time senders (`app/session.py`, `app/whatsapp.py`)

@@ -43,7 +43,18 @@ def download_twilio_media(media_url: str) -> bytes | None:
         logger.error("Missing Twilio credentials or media_url; cannot download media")
         return None
     try:
-        response = httpx.get(media_url, auth=(account_sid, auth_token), timeout=DOWNLOAD_TIMEOUT_SECONDS)
+        # Twilio media URLs 307-redirect to the actual file location.
+        # httpx does NOT follow redirects by default (unlike requests) --
+        # confirmed live: without this, raise_for_status() treated the
+        # redirect response itself as a failure and every real voice
+        # note/image download failed with "Redirect response '307
+        # Temporary Redirect'".
+        response = httpx.get(
+            media_url,
+            auth=(account_sid, auth_token),
+            timeout=DOWNLOAD_TIMEOUT_SECONDS,
+            follow_redirects=True,
+        )
         response.raise_for_status()
         return response.content
     except Exception:

@@ -221,7 +221,7 @@ def test_whatsapp_with_text_returns_interim_reply_then_sends_real_verdict(monkey
     assert "https://example.org/fact-check" in sent["body"]
 
 
-def test_whatsapp_interim_reply_is_language_agnostic_and_instant(monkeypatch):
+def test_whatsapp_interim_reply_does_not_wait_for_language_detection(monkeypatch):
     # detect_language is itself an LLM call (needed for Hausa/Yoruba/Igbo
     # support) -- it must NOT be called before the interim reply is built,
     # or the "instant" reply isn't instant. Proven here by making
@@ -245,10 +245,9 @@ def test_whatsapp_interim_reply_is_language_agnostic_and_instant(monkeypatch):
         data={"Body": "Nimesikia kuwa matokeo ya uchaguzi", "From": "whatsapp:+254700000000", "NumMedia": "0"},
     )
     assert resp.status_code == 200
-    # Combined multi-language text -- covers all 5 supported languages at once.
+    # English-only, universal enough on its own -- an earlier version
+    # stacked all 5 languages together, which read as cluttered.
     assert "Checking" in resp.text
-    assert "Tunakagua" in resp.text
-    assert "Muna duba" in resp.text
 
 
 def test_whatsapp_background_task_detects_language_and_passes_it_through(monkeypatch):

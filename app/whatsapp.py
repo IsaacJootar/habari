@@ -15,13 +15,11 @@ logger = logging.getLogger(__name__)
 # but detect_language() is itself an LLM call (needed for 5-language
 # support, since only English/Swahili can be auto-detected without one) --
 # measured directly at 1.4-7s with real variance, which defeated the whole
-# point of an "instant" interim reply. So this one combined message covers
-# all 5 languages at once, sent with zero detection needed; the actual
-# language detection now happens only in the background task, for the
-# real verdict.
-INTERIM_TEXT = (
-    "⏳ Checking that for you... / Tunakagua... / Muna duba... / À ń ṣàyẹ̀wò... / Anyị na-elele..."
-)
+# point of an "instant" interim reply. English only (an earlier version
+# stacked all 5 languages together, which read as cluttered -- user
+# feedback after a live test) -- the ⏳ plus a short universal wait is
+# enough; the real answer that follows is fully localized.
+INTERIM_TEXT = "⏳ Checking that for you..."
 
 # Sent instead of INTERIM_TEXT for a sender's very first message (see
 # app/session.py) -- doubles as the "please wait" ack so a first-time
