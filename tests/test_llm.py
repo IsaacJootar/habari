@@ -3,6 +3,7 @@ import json
 import pytest
 
 from app import llm
+from app.live_search import LiveSearchResult
 from app.models import FactCheckEntry, RetrievalMatch
 
 ENTRY = FactCheckEntry(
@@ -16,6 +17,13 @@ ENTRY = FactCheckEntry(
     source="Africa Check",
 )
 MATCHES = [RetrievalMatch(entry=ENTRY, score=90.0)]
+
+LIVE_RESULT = LiveSearchResult(
+    source="Dubawa",
+    title="Kindergarten pupils will not learn Chinese, Ghana curriculum claim is false",
+    content="The Education Minister clarified that Chinese is optional from Primary 4, not kindergarten.",
+    url="https://dubawa.org/some-live-article",
+)
 
 
 class _FakeMessage:
@@ -133,3 +141,61 @@ def test_api_error_falls_back_to_unverified(monkeypatch):
     _patch_client(monkeypatch, exception=RuntimeError("network exploded"))
     reply = llm.synthesize_verdict("claim", MATCHES)
     assert reply.verdict == "Unverified"
+
+
+def test_no_matches_and_no_live_results_skips_llm_call(monkeypatch):
+    def _boom():
+        raise AssertionError("LLM should never be called with no matches and no live results")
+
+    monkeypatch.setattr(llm, "_get_client", _boom)
+    reply = llm.synthesize_verdict("some claim", [], [])
+    assert reply.verdict == "Unverified"
+
+
+def test_live_results_alone_still_calls_the_llm_and_can_ground(monkeypatch):
+    content = json.dumps(
+        {
+            "verdict": "False",
+            "explanation": "Kindergarten pupils will not learn Chinese under the new curriculum.",
+            "source_url": LIVE_RESULT.url,
+        }
+    )
+    fake = _patch_client(monkeypatch, content=content)
+    reply = llm.synthesize_verdict("kindergarten chinese curriculum claim", [], [LIVE_RESULT])
+    assert reply.verdict == "False"
+    assert reply.source_url == LIVE_RESULT.url
+    assert fake.completions.calls == 1
+
+
+def test_hallucinated_live_result_url_falls_back_to_unverified(monkeypatch):
+    content = json.dumps(
+        {
+            "verdict": "False",
+            "explanation": "Some explanation.",
+            "source_url": "https://not-one-of-the-live-results.example/",
+        }
+    )
+    _patch_client(monkeypatch, content=content)
+    reply = llm.synthesize_verdict("claim", [], [LIVE_RESULT])
+    assert reply.verdict == "Unverified"
+
+
+def test_combined_matches_and_live_results_both_offered_to_llm(monkeypatch):
+    captured = {}
+
+    class _CapturingCompletions:
+        def create(self, **kwargs):
+            captured["messages"] = kwargs["messages"]
+            return _FakeResponse(json.dumps({"verdict": "Unverified", "explanation": "n/a", "source_url": None}))
+
+    class _CapturingClient:
+        def __init__(self):
+            self.chat = _FakeChat(_CapturingCompletions())
+
+    monkeypatch.setattr(llm, "_get_client", lambda: _CapturingClient())
+    llm.synthesize_verdict("claim", MATCHES, [LIVE_RESULT])
+    user_message = captured["messages"][1]["content"]
+    assert ENTRY.source_url in user_message
+    assert LIVE_RESULT.url in user_message
+    assert "Published verdict" in user_message  # static match
+    assert "verdict not given" in user_message  # live result

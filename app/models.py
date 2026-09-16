@@ -2,6 +2,8 @@ from typing import Literal
 
 from pydantic import BaseModel
 
+from app.national_news import suggest_national_outlet
+
 Verdict = Literal["True", "False", "Misleading", "Unverified"]
 
 
@@ -92,6 +94,38 @@ _UNVERIFIED_BY_LANGUAGE = {
     "ig": UNVERIFIED_REPLY_IG,
 }
 
+# POC-quality translations, not reviewed by native speakers.
+_ALSO_CHECK_PHRASES = {
+    "en": "You could also check",
+    "sw": "Unaweza pia kuangalia",
+    "ha": "Hakanan za ka iya duba",
+    "yo": "O tún lè ṣàyẹ̀wò",
+    "ig": "Ị nwekwara ike ịlele",
+}
 
-def unverified_reply(language: str = "en") -> WebhookReply:
-    return _UNVERIFIED_BY_LANGUAGE.get(language, UNVERIFIED_REPLY_EN)
+
+def with_national_suggestion(explanation: str, language: str, claim: str) -> str:
+    """Appends a "you could also check <national newspaper>" suggestion to
+    an Unverified explanation, if the claim text names one of a few sample
+    countries. Not a fact-check source (general newspapers report news,
+    they don't publish verdicts) -- just a more locally useful "where to
+    look next" than only naming the fact-checker sites generically. Used
+    on both the static fallback text and the LLM's own Unverified
+    explanation, so the suggestion shows up regardless of which one is in
+    play.
+    """
+    suggestion = suggest_national_outlet(claim) if claim else None
+    if not suggestion:
+        return explanation
+    name, url = suggestion
+    lead_in = _ALSO_CHECK_PHRASES.get(language, _ALSO_CHECK_PHRASES["en"])
+    return f"{explanation} {lead_in} {name}: {url}"
+
+
+def unverified_reply(language: str = "en", claim: str = "") -> WebhookReply:
+    """The honest "we don't have a verified answer" fallback."""
+    base = _UNVERIFIED_BY_LANGUAGE.get(language, UNVERIFIED_REPLY_EN)
+    explanation = with_national_suggestion(base.explanation, language, claim)
+    if explanation == base.explanation:
+        return base
+    return WebhookReply(verdict="Unverified", explanation=explanation, source_url=None)

@@ -41,7 +41,7 @@ def test_whatsapp_with_text_returns_interim_reply_then_sends_real_verdict(monkey
     )
     sent = {}
 
-    def fake_synthesize(claim, matches, language="en"):
+    def fake_synthesize(claim, matches, live_results, language="en"):
         return reply
 
     def fake_send(to, body):
@@ -50,6 +50,7 @@ def test_whatsapp_with_text_returns_interim_reply_then_sends_real_verdict(monkey
 
     monkeypatch.setattr(main, "detect_language", lambda claim: "en")
     monkeypatch.setattr(main, "retrieve", lambda claim: ["fake-match"])
+    monkeypatch.setattr(main, "live_search", lambda claim: [])
     monkeypatch.setattr(main, "synthesize_verdict", fake_synthesize)
     monkeypatch.setattr(main, "send_whatsapp_message", fake_send)
 
@@ -70,43 +71,46 @@ def test_whatsapp_with_text_returns_interim_reply_then_sends_real_verdict(monkey
     assert "https://example.org/fact-check" in sent["body"]
 
 
-def test_whatsapp_swahili_text_gets_swahili_interim_and_language_passed(monkeypatch):
-    captured = {}
+def test_whatsapp_interim_reply_is_language_agnostic_and_instant(monkeypatch):
+    # detect_language is itself an LLM call (needed for Hausa/Yoruba/Igbo
+    # support) -- it must NOT be called before the interim reply is built,
+    # or the "instant" reply isn't instant. Proven here by making
+    # detect_language raise if called synchronously on this path; it's
+    # only used inside the background task via synthesize_verdict, which
+    # is mocked out entirely.
+    def _boom_if_called_early(claim):
+        raise AssertionError("detect_language must not run before the interim reply is sent")
 
-    def fake_synthesize(claim, matches, language="en"):
-        captured["language"] = language
-        return WebhookReply(verdict="Unverified", explanation="hakuna taarifa", source_url=None)
-
-    # detect_language is now an LLM call -- mocked here since accuracy is
-    # covered separately in tests/test_language.py; this test only checks
-    # that main.py wires the detected language through correctly.
-    monkeypatch.setattr(main, "detect_language", lambda claim: "sw")
+    monkeypatch.setattr(main, "detect_language", _boom_if_called_early)
     monkeypatch.setattr(main, "retrieve", lambda claim: [])
-    monkeypatch.setattr(main, "synthesize_verdict", fake_synthesize)
-    monkeypatch.setattr(main, "send_whatsapp_message", lambda to, body: None)
+    monkeypatch.setattr(main, "live_search", lambda claim: [])
+
+    def fake_resolve_and_send(claim, to):
+        pass  # detect_language would be called for real here in production
+
+    monkeypatch.setattr(main, "_resolve_and_send", fake_resolve_and_send)
 
     resp = client.post(
         "/whatsapp",
-        data={
-            "Body": "Nimesikia kuwa matokeo ya uchaguzi yamegushwa kumpendelea rais",
-            "From": "whatsapp:+254700000000",
-            "NumMedia": "0",
-        },
+        data={"Body": "Nimesikia kuwa matokeo ya uchaguzi", "From": "whatsapp:+254700000000", "NumMedia": "0"},
     )
     assert resp.status_code == 200
+    # Combined multi-language text -- covers all 5 supported languages at once.
+    assert "Checking" in resp.text
     assert "Tunakagua" in resp.text
-    assert captured["language"] == "sw"
+    assert "Muna duba" in resp.text
 
 
-def test_whatsapp_hausa_text_gets_hausa_interim_and_language_passed(monkeypatch):
+def test_whatsapp_background_task_detects_language_and_passes_it_through(monkeypatch):
     captured = {}
 
-    def fake_synthesize(claim, matches, language="en"):
+    def fake_synthesize(claim, matches, live_results, language="en"):
         captured["language"] = language
         return WebhookReply(verdict="Unverified", explanation="babu bayani", source_url=None)
 
     monkeypatch.setattr(main, "detect_language", lambda claim: "ha")
     monkeypatch.setattr(main, "retrieve", lambda claim: [])
+    monkeypatch.setattr(main, "live_search", lambda claim: [])
     monkeypatch.setattr(main, "synthesize_verdict", fake_synthesize)
     monkeypatch.setattr(main, "send_whatsapp_message", lambda to, body: None)
 
@@ -119,5 +123,7 @@ def test_whatsapp_hausa_text_gets_hausa_interim_and_language_passed(monkeypatch)
         },
     )
     assert resp.status_code == 200
-    assert "Muna duba" in resp.text
+    # TestClient runs background tasks before returning, so by now
+    # detect_language has run (in the background task) and its result
+    # reached synthesize_verdict.
     assert captured["language"] == "ha"

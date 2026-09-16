@@ -16,19 +16,40 @@ A user forwards a message to the bot on WhatsApp. Habari replies with:
 - A link to the trusted source article
 - If nothing matches: an honest "Unverified" plus what to check next
 
-Habari is a **router and summarizer on top of existing trusted fact-checkers** — it never invents a verdict from general AI knowledge. If no real, confident match is found in the curated dataset, it always says "Unverified" rather than guessing.
+Habari is a **router and summarizer on top of existing trusted fact-checkers** — it never invents a verdict from general AI knowledge. If nothing real is found — neither in the curated dataset nor via live search — it always says "Unverified" rather than guessing.
+
+### The flow, in plain terms
+
+1. **Someone sends a message on WhatsApp** — a claim, a rumor, a screenshot they retyped — to the Habari number.
+2. **Twilio hands it to our server, which replies right away** with "⏳ Checking that for you..." (all 5 languages at once, so it's genuinely instant — no AI call gates this step). The person sees something happen immediately instead of silence.
+3. **Then, behind the scenes, in order:**
+   - **Figure out the language** — a quick AI call reads the message and decides: English, Swahili, Hausa, Yoruba, or Igbo.
+   - **Check our own saved file** — fast keyword search through the curated dataset for an obvious match.
+   - **Check the internet, live, right now** — separately, Dubawa's and GhanaFact's own sites get searched directly, at that exact moment, catching anything published since the dataset was last updated (the other three sources block automatic searching, so they're limited to what's in the saved file).
+   - **Hand everything to the AI** — whatever got found (saved file, live search, or both) goes to the AI along with the original message, under one strict rule: only repeat what a real article actually says, never invent.
+4. **The AI decides:**
+   - A real article answers the question → it summarizes that article's actual verdict, in plain language, in the person's own language, with the real link.
+   - Nothing found actually answers it → an honest "Unverified," plus — if the claim names Nigeria, Kenya, Ghana, or Uganda — a suggestion to also check that country's national newspaper.
+5. **The real answer arrives as a second WhatsApp message**, a few seconds after the first "checking" message, delivered via Twilio's messaging API.
+
+So the person sees two messages: an instant "hold on," then the real, honest answer once it's actually been checked — never a fast but made-up one.
 
 ```
 User (WhatsApp)
    → Twilio WhatsApp Sandbox (webhook)
    → Backend (FastAPI)
-       1. Classify incoming message (topic, language) — LLM call
-       2. Retrieve — fuzzy-match claim against curated dataset of real
-          fact-check articles from verified fact-checking organizations
-       3. LLM synthesizes verdict + explanation, grounded ONLY in the
-          retrieved article. No confident match → "Unverified."
+       1. Retrieve — fuzzy-match claim against curated dataset of real
+          fact-check articles (data/factchecks.json)
+       2. Live search — search Dubawa/GhanaFact's own sites right now,
+          for anything published since the dataset was last curated
+       3. LLM reads whatever was found (curated + live) and grounds a
+          verdict + explanation ONLY in that — never outside knowledge.
+          Nothing found or nothing relevant → "Unverified," plus a
+          country-specific newspaper suggestion where one can be guessed.
    → Reply sent back on WhatsApp
 ```
+
+A static file alone can never keep up with rumors happening this week — live search is what covers a claim from days ago that was never manually curated. See `BUILD_PLAN.md` Phase 1 ("Live search + national news suggestions") for why only 2 of the 5 sources can be searched live today, and what a claim not in the static file actually looks like end-to-end.
 
 ## Sources
 
@@ -36,13 +57,17 @@ Habari only ever cites real, published fact-checks from credible, verified organ
 
 The roster started with three East/West African fact-checkers and is actively growing — coverage gaps get fixed by adding more verified sources and more articles per source, not by loosening that rule. Currently 64 articles across 5 sources:
 
-- [Africa Check](https://africacheck.org) — Pan-African
-- [PesaCheck](https://pesacheck.org) — Kenya, Tanzania, Uganda
-- [Dubawa](https://dubawa.org) — Nigeria and West Africa
-- [GhanaFact](https://ghanafact.com) — Ghana
-- [AFP Fact Check](https://factcheck.afp.com) — Pan-African desk
+- [Dubawa](https://dubawa.org) — Nigeria and West Africa — **searched live**
+- [GhanaFact](https://ghanafact.com) — Ghana — **searched live**
+- [Africa Check](https://africacheck.org) — Pan-African — curated dataset only (blocks automated requests)
+- [PesaCheck](https://pesacheck.org) — Kenya, Tanzania, Uganda — curated dataset only (blocks automated requests)
+- [AFP Fact Check](https://factcheck.afp.com) — Pan-African desk — curated dataset only (blocks automated requests)
+
+"Searched live" means every incoming claim is checked against that site's own search, right now, in addition to the curated dataset — not limited to whatever was manually curated ahead of time. The other three sites actively block plain automated requests (confirmed directly, not assumed), so they're covered only by the curated snapshot until a proper search API is added for them.
 
 One candidate source (ZimFact) was investigated and deliberately **not** added — credible on paper, but its site is currently down, so no article could be verified. Excluded rather than cited with a broken link; see `BUILD_PLAN.md` Phase 1 for the full reasoning.
+
+**Also, on an "Unverified" reply**, if the claim mentions Nigeria, Kenya, Ghana, or Uganda, Habari suggests that country's national newspaper as somewhere else to check ([Premium Times](https://www.premiumtimesng.com), [Nation Africa](https://nation.africa), [Daily Graphic](https://www.graphic.com.gh), [Daily Monitor](https://www.monitor.co.ug)). These are general news outlets, not fact-checkers — they never produce a verdict, only a "here's where to look next" suggestion.
 
 ## Status
 
@@ -54,7 +79,9 @@ One candidate source (ZimFact) was investigated and deliberately **not** added �
 - [x] LLM verdict synthesis (`app/llm.py`) — grounded strictly in the retrieved article(s); falls back to "Unverified" on any API error, malformed response, or if the model can't trace its answer back to a given article
 - [x] Twilio-shaped `/whatsapp` webhook + TwiML replies (`app/whatsapp.py`) — [connected to the real Sandbox](#connecting-the-real-whatsapp-sandbox) and verified with a live WhatsApp round-trip
 - [x] 5-language detection — English, Swahili, Hausa, Yoruba, Igbo (`app/language.py`, LLM-based — see BUILD_PLAN.md for why)
-- [x] Instant "⏳ Checking that for you..." reply while the real verdict is generated in the background and sent as a follow-up message
+- [x] Instant, language-agnostic "⏳ Checking that for you..." reply while the real verdict is generated in the background and sent as a follow-up message (language detection itself moved to the background too — it's an LLM call and was quietly blocking the "instant" reply until this was caught and fixed)
+- [x] Live search (`app/live_search.py`) for Dubawa and GhanaFact, so a claim doesn't need to already be in the curated dataset — verified live against a real story not in the 64-entry file
+- [x] National newspaper "check here too" suggestions on Unverified replies (`app/national_news.py`), 4 sample countries
 - [ ] Phase 4 (remaining): onboarding message, POC disclaimer, voice note transcription (stretch), image/screenshot claim extraction (stretch) — see BUILD_PLAN.md for the technical plan for both
 - [ ] Phase 5-6: Deliverables (video, deck, written summary), submission
 

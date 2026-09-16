@@ -9,16 +9,19 @@ from app.models import WebhookReply
 logger = logging.getLogger(__name__)
 
 # Shown immediately (synchronously, in the webhook's own TwiML reply) while
-# the real verdict is generated in the background -- retrieval + the LLM
-# call take a few seconds, and WhatsApp gives no other sign of life while
-# that happens.
-INTERIM_TEXT = {
-    "en": "⏳ Checking that for you...",
-    "sw": "⏳ Tunakagua hilo kwa ajili yako...",
-    "ha": "⏳ Muna duba wannan a gare ka...",
-    "yo": "⏳ À ń ṣàyẹ̀wò náà fún ọ...",
-    "ig": "⏳ Anyị na-elele nke ahụ maka gị...",
-}
+# the real verdict is generated in the background -- retrieval + live
+# search + the LLM call take a few seconds, and WhatsApp gives no other
+# sign of life while that happens. This used to be picked per-language,
+# but detect_language() is itself an LLM call (needed for 5-language
+# support, since only English/Swahili can be auto-detected without one) --
+# measured directly at 1.4-7s with real variance, which defeated the whole
+# point of an "instant" interim reply. So this one combined message covers
+# all 5 languages at once, sent with zero detection needed; the actual
+# language detection now happens only in the background task, for the
+# real verdict.
+INTERIM_TEXT = (
+    "⏳ Checking that for you... / Tunakagua... / Muna duba... / À ń ṣàyẹ̀wò... / Anyị na-elele..."
+)
 
 # POC-quality translations, not reviewed by native speakers yet -- worth a
 # proper check before the demo (see BUILD_PLAN.md Phase 4).

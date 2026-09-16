@@ -58,19 +58,31 @@ Verified information already exists from credible regional fact-checking organiz
 User (WhatsApp)
    → Twilio WhatsApp Sandbox (webhook)
    → Backend (FastAPI, Python)
-       Step 1: Classify incoming message (topic, language, urgency) — LLM call
-       Step 2: Retrieval — match claim against curated dataset of real
-                fact-check articles (Africa Check / PesaCheck / Dubawa)
-       Step 3: LLM synthesizes verdict + explanation, grounded ONLY in
-                the retrieved article(s). No match → "Unverified."
-   → Reply sent back to user on WhatsApp
+       Step 1: Retrieval — match claim against curated dataset of real
+                fact-check articles (Africa Check / PesaCheck / Dubawa /
+                GhanaFact / AFP Fact Check)
+       Step 2: Live search — search Dubawa's and GhanaFact's own sites
+                right now, for anything not in the curated dataset (the
+                other three sources block automated requests; see
+                BUILD_PLAN.md Phase 1 for why)
+       Step 3: LLM reads whatever was found (curated + live) and
+                synthesizes a verdict + explanation, grounded ONLY in
+                that. Nothing found or nothing relevant → "Unverified,"
+                with a language guess (LLM-based) and, where a country
+                can be guessed from the claim, a national newspaper
+                suggestion as a next step.
+   → Reply sent back to user on WhatsApp (instant "checking" ack first,
+     real answer follows as a second message once ready)
 ```
+
+A static curated file alone can never keep pace with rumors as they happen — live search is what lets Habari answer a claim from last week that nobody manually added to the dataset. The dataset isn't obsolete, though: it's the fast, always-available baseline, and it's still the only option for the three sources that block live search.
 
 ### Tech stack
 - **Backend:** Python, FastAPI
 - **Messaging:** Twilio WhatsApp Sandbox (no need for full WhatsApp Business API approval for a POC)
-- **LLM:** ChatGPT API (OpenAI) for classification + grounded verdict generation
-- **Retrieval:** Start simple — keyword/fuzzy match over a local JSON/CSV dataset of ~30–50 curated articles. Upgrade to embeddings/vector search only if time allows.
+- **LLM:** ChatGPT API (OpenAI) for language detection + grounded verdict generation
+- **Retrieval:** Keyword/fuzzy match over a local JSON dataset of curated articles (`app/retrieval.py`), tag-gated to avoid false positives.
+- **Live search:** Direct requests to Dubawa's and GhanaFact's WordPress REST search APIs at request time (`app/live_search.py`) — the other three sources block plain automated requests.
 - **Voice notes (stretch goal):** Whisper API for transcription before running the same pipeline.
 - **Secrets:** `.env` file (e.g. `OPENAI_API_KEY`), excluded via `.gitignore` from the very first commit.
 
