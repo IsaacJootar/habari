@@ -7,9 +7,11 @@ from app.live_search import live_search
 from app.llm import synthesize_verdict
 from app.models import WebhookReply, unverified_reply
 from app.retrieval import retrieve
+from app.session import is_first_time
 from app.whatsapp import (
     INTERIM_TEXT,
     VOICE_NOTE_UNSUPPORTED_TEXT,
+    WELCOME_TEXT,
     build_twiml,
     render_whatsapp_text,
     send_whatsapp_message,
@@ -85,4 +87,5 @@ async def whatsapp_webhook(
         return Response(content=build_twiml(text), media_type="application/xml")
 
     background_tasks.add_task(_resolve_and_send, claim, From)
-    return Response(content=build_twiml(INTERIM_TEXT), media_type="application/xml")
+    ack_text = WELCOME_TEXT if is_first_time(From) else INTERIM_TEXT
+    return Response(content=build_twiml(ack_text), media_type="application/xml")

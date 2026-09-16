@@ -33,6 +33,37 @@ def test_whatsapp_empty_message_no_media_returns_english_unverified(monkeypatch)
     assert "UNVERIFIED" in resp.text
 
 
+def test_whatsapp_first_message_from_sender_gets_welcome_text(monkeypatch):
+    monkeypatch.setattr(main, "retrieve", lambda claim: [])
+    monkeypatch.setattr(main, "live_search", lambda claim: [])
+    monkeypatch.setattr(main, "_resolve_and_send", lambda claim, to: None)
+
+    resp = client.post(
+        "/whatsapp",
+        data={"Body": "some claim", "From": "whatsapp:+254711111111", "NumMedia": "0"},
+    )
+    assert resp.status_code == 200
+    assert "welcome to Habari" in resp.text
+    assert "hackathon prototype" in resp.text
+    # Welcome text still doubles as the "please wait" ack -- the first
+    # message still gets checked, it isn't a wasted turn.
+    assert "Checking" in resp.text
+
+
+def test_whatsapp_second_message_from_same_sender_gets_regular_interim_text(monkeypatch):
+    monkeypatch.setattr(main, "retrieve", lambda claim: [])
+    monkeypatch.setattr(main, "live_search", lambda claim: [])
+    monkeypatch.setattr(main, "_resolve_and_send", lambda claim, to: None)
+
+    sender = "whatsapp:+254722222222"
+    first = client.post("/whatsapp", data={"Body": "first claim", "From": sender, "NumMedia": "0"})
+    second = client.post("/whatsapp", data={"Body": "second claim", "From": sender, "NumMedia": "0"})
+
+    assert "welcome to Habari" in first.text
+    assert "welcome to Habari" not in second.text
+    assert "Checking" in second.text
+
+
 def test_whatsapp_with_text_returns_interim_reply_then_sends_real_verdict(monkeypatch):
     reply = WebhookReply(
         verdict="False",

@@ -107,3 +107,26 @@ def test_ranking_prefers_more_matching_tags_over_a_fuzzy_score_tie(monkeypatch):
     matches = retrieval.retrieve("is it true kindergarten pupils will learn chinese in the new Ghana curriculum")
     assert matches
     assert matches[0].entry.id == "test-right-topic-two-tags"
+
+
+def test_distinctive_brand_name_in_title_triggers_gate_even_without_a_tag_match(monkeypatch):
+    # Found via stress-testing: a real claim naming the specific brand
+    # involved ("Safaricom") didn't match the real curated article about
+    # it, because "Safaricom" wasn't one of the article's generic
+    # category tags (scam, mpesa, investment-fraud, deepfake, kenya) and
+    # nothing else in the claim matched those tags either. Distinctive
+    # title words now act as an additional gate signal alongside tags.
+    entry = FactCheckEntry(
+        id="test-safaricom-trading-scam",
+        title="HOAX: This site running a trading platform supposedly from Safaricom is a scam",
+        summary="Scammers set up a fake trading platform impersonating Safaricom to defraud victims.",
+        verdict="False",
+        source_url="https://example.org/safaricom-scam",
+        topic_tags=["scam", "mpesa", "investment-fraud", "deepfake", "kenya"],
+        country="Kenya",
+        source="PesaCheck",
+    )
+    monkeypatch.setattr(retrieval, "load_dataset", lambda: [entry])
+    matches = retrieval.retrieve("I got a message saying I won a Safaricom trading promotion")
+    assert matches
+    assert matches[0].entry.id == "test-safaricom-trading-scam"

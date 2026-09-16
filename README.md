@@ -71,7 +71,7 @@ One candidate source (ZimFact) was investigated and deliberately **not** added �
 
 ## Status
 
-**Phases 1-3 done, Phase 4 started early — live on the WhatsApp Sandbox.** See [BUILD_PLAN.md](BUILD_PLAN.md) for the full phase-by-phase checklist.
+**Phases 1-3 done, Phase 4 core done — live on the WhatsApp Sandbox, stress-tested.** See [BUILD_PLAN.md](BUILD_PLAN.md) for the full phase-by-phase checklist.
 
 - [x] FastAPI project skeleton (`app/main.py`)
 - [x] Curated dataset of 64 real fact-check articles across 5 sources (`data/factchecks.json`) — see [Sources](#sources)
@@ -82,7 +82,9 @@ One candidate source (ZimFact) was investigated and deliberately **not** added �
 - [x] Instant, language-agnostic "⏳ Checking that for you..." reply while the real verdict is generated in the background and sent as a follow-up message (language detection itself moved to the background too — it's an LLM call and was quietly blocking the "instant" reply until this was caught and fixed)
 - [x] Live search (`app/live_search.py`) for Dubawa and GhanaFact, so a claim doesn't need to already be in the curated dataset — verified live against a real story not in the 64-entry file
 - [x] National newspaper "check here too" suggestions on Unverified replies (`app/national_news.py`), 4 sample countries
-- [ ] Phase 4 (remaining): onboarding message, POC disclaimer, voice note transcription (stretch), image/screenshot claim extraction (stretch) — see BUILD_PLAN.md for the technical plan for both
+- [x] Onboarding message + POC disclaimer for first-time senders (`app/session.py`, `app/whatsapp.py`)
+- [x] Stress-tested against the locked demo scenarios (health rumor, election claim, scam) plus an unverifiable claim and a Swahili variant — found and fixed a real retrieval bug in the process (see BUILD_PLAN.md Phase 4)
+- [ ] Phase 4 (remaining, stretch only): voice note transcription, image/screenshot claim extraction — see BUILD_PLAN.md for the technical plan for both
 - [ ] Phase 5-6: Deliverables (video, deck, written summary), submission
 
 ## Running locally

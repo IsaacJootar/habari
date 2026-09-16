@@ -23,6 +23,20 @@ INTERIM_TEXT = (
     "⏳ Checking that for you... / Tunakagua... / Muna duba... / À ń ṣàyẹ̀wò... / Anyị na-elele..."
 )
 
+# Sent instead of INTERIM_TEXT for a sender's very first message (see
+# app/session.py) -- doubles as the "please wait" ack so a first-time
+# sender's message still gets checked immediately, not wasted on a
+# welcome-only turn. English only, per the copy the user picked; the POC
+# disclaimer is folded in here (shown once, not on every reply, to avoid
+# being repetitive on a low-bandwidth channel) rather than added
+# separately to every reply.
+WELCOME_TEXT = (
+    "👋 Hey, welcome to Habari! Send me a rumor, claim, or news you've seen "
+    "and I'll check it against real fact-checkers before you believe or share it.\n\n"
+    "🧪 This is a hackathon prototype, not a production service — always "
+    "double-check anything important.\n\n" + INTERIM_TEXT
+)
+
 # POC-quality translations, not reviewed by native speakers yet -- worth a
 # proper check before the demo (see BUILD_PLAN.md Phase 4).
 VERDICT_LABELS = {

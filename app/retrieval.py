@@ -29,7 +29,27 @@ TAG_WORD_MATCH_THRESHOLD = 85.0
 # claims into completely wrong articles.
 MIN_SUBSTRING_MATCH_LENGTH = 4
 
+# Minimum length for a title word to count as its own gate signal (see
+# _significant_title_words) -- keeps this to distinctive words, not every
+# word in the title.
+MIN_TITLE_WORD_LENGTH = 4
+
 _WORD_RE = re.compile(r"[a-z0-9']+")
+
+# Used only to filter title words down to distinctive ones for the gate
+# (see _significant_title_words) -- doesn't need to be exhaustive, just
+# needs to exclude common words long enough to slip past
+# MIN_TITLE_WORD_LENGTH (e.g. "will", "this", "from", "that").
+_COMMON_TITLE_WORDS = {
+    "about", "after", "again", "also", "amid", "amidst", "among", "announcement",
+    "before", "being", "both", "case", "claim", "claims", "does", "doesn't",
+    "during", "each", "false", "from", "have", "here", "into", "just", "less",
+    "make", "makes", "more", "most", "must", "only", "over", "photo", "picture",
+    "really", "said", "same", "show", "shows", "since", "some", "such", "than",
+    "that", "their", "them", "then", "there", "these", "they", "this", "those",
+    "through", "under", "until", "video", "viral", "were", "what", "when",
+    "where", "which", "while", "will", "with", "would", "your",
+}
 
 
 def _words(text: str) -> list[str]:
@@ -76,8 +96,28 @@ def _tag_mentioned(tag: str, claim_words: list[str]) -> bool:
     )
 
 
+def _significant_title_words(entry: FactCheckEntry) -> list[str]:
+    """Distinctive (4+ letter, non-generic) words from the entry's title,
+    treated as additional gate signals alongside topic_tags. Catches a
+    claim that names a specific brand/person/place ("Safaricom") which a
+    generic category tag ("investment-fraud") wouldn't -- found via a
+    stress-test claim ("I got a message saying I won a Safaricom trading
+    promotion") that should have matched a real "fake Safaricom trading
+    platform" entry but didn't, because "Safaricom" wasn't one of that
+    entry's tags and nothing else in the claim was either."""
+    return [
+        word
+        for word in _words(entry.title)
+        if len(word) >= MIN_TITLE_WORD_LENGTH and word not in _COMMON_TITLE_WORDS
+    ]
+
+
+def _gate_terms(entry: FactCheckEntry) -> list[str]:
+    return list(entry.topic_tags) + _significant_title_words(entry)
+
+
 def _matching_tag_count(entry: FactCheckEntry, claim_words: list[str]) -> int:
-    return sum(1 for tag in entry.topic_tags if _tag_mentioned(tag, claim_words))
+    return sum(1 for term in _gate_terms(entry) if _tag_mentioned(term, claim_words))
 
 
 def retrieve(claim: str, top_k: int = 5, min_score: float = MIN_CONFIDENT_SCORE) -> list[RetrievalMatch]:
