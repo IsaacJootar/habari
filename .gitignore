@@ -6,3 +6,6 @@ venv/
 *.egg-info/
 .pytest_cache/
 .DS_Store
+
+# Pitch deck is submitted directly to judges, not via the repo (user's choice).
+deck/
