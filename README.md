@@ -71,7 +71,7 @@ One candidate source (ZimFact) was investigated and deliberately **not** added �
 
 ## Status
 
-**Phases 1-4 done (including both stretch goals) — live on the WhatsApp Sandbox, stress-tested.** See [BUILD_PLAN.md](BUILD_PLAN.md) for the full phase-by-phase checklist.
+**Phases 1-4 done (including both stretch goals) — live on the WhatsApp Sandbox, stress-tested. Phase 5 nearly done.** See [BUILD_PLAN.md](BUILD_PLAN.md) for the full phase-by-phase checklist.
 
 - [x] FastAPI project skeleton (`app/main.py`)
 - [x] Curated dataset of 64 real fact-check articles across 5 sources (`data/factchecks.json`) — see [Sources](#sources)
@@ -86,7 +86,9 @@ One candidate source (ZimFact) was investigated and deliberately **not** added �
 - [x] Stress-tested against the locked demo scenarios (health rumor, election claim, scam) plus an unverifiable claim and a Swahili variant — found and fixed a real retrieval bug in the process (see BUILD_PLAN.md Phase 4)
 - [x] Voice note transcription (`app/media.py`) — a voice note gets transcribed (OpenAI `gpt-4o-mini-transcribe`) and the text runs through the normal pipeline; verified with real synthesized speech, not just mocks
 - [x] Image/screenshot claim extraction (`app/media.py`) — the visible claim text gets read out of the image (gpt-4o-mini, multimodal) and runs through the normal pipeline; verified with a real generated test image, not just mocks
-- [ ] Phase 5-6: Deliverables (video, deck, written summary), submission
+- [x] Demo video — real WhatsApp exchanges, narrated live
+- [x] Pitch deck (submitted directly to judges, not in this repo)
+- [ ] Phase 6: Written summary, final end-to-end test, submission
 
 ## Running locally
 
@@ -144,3 +146,19 @@ pytest
 ## Limitations (hackathon POC)
 
 This is an invention-sprint proof of concept, not a production system — see `CLAUDE.md` for the full brief, build plan, and non-negotiable design constraints.
+
+- **No hosted deployment.** The bot only runs while the dev machine's local server + ngrok tunnel are active — a deliberate scoping decision (see `BUILD_PLAN.md` Phase 5), not an oversight, since a live judge-reachable instance isn't one of the hackathon's required deliverables. The demo video shows real WhatsApp exchanges instead.
+- **Live search covers 2 of 5 sources.** Dubawa and GhanaFact are searched live on every claim; Africa Check, PesaCheck, and AFP Fact Check block plain automated requests (confirmed directly), so they're covered only by the curated dataset snapshot.
+- **Non-English copy isn't native-speaker reviewed.** Swahili, Hausa, Yoruba, and Igbo replies are LLM-generated and grounded correctly, but the wording itself hasn't been checked by a native speaker of each language.
+- **National newspaper suggestions cover 4 countries** (Nigeria, Kenya, Ghana, Uganda) — others fall back to the generic "check africacheck.org/pesacheck.org/dubawa.org" suggestion.
+- **In-memory session state.** The "seen this sender before" onboarding flag resets on server restart — a deliberate privacy tradeoff (no persistent user data), not a bug.
+
+## Next steps
+
+What this POC demonstrates is worth developing further — with more time:
+
+- **Deploy to a real always-on host** (Namecheap or AWS) so the bot is reachable by anyone, not just during a dev session.
+- **Move off the Twilio Sandbox** to full WhatsApp Business API approval — the Sandbox requires each user to send a join code and expires after inactivity, which doesn't scale past a demo.
+- **Add live search for the 3 remaining sources** (Africa Check, PesaCheck, AFP Fact Check) via a proper, non-blocked search integration.
+- **Grow the curated dataset and the national-newspaper list** beyond the current 64 articles / 4 countries.
+- **Native-speaker review pass** on the Swahili, Hausa, Yoruba, and Igbo copy.
