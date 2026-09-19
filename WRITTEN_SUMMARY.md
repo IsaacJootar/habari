@@ -40,6 +40,18 @@ This matters well beyond any single rumor. Much of what circulates is about publ
 
 Habari works today, live, on a real WhatsApp number — real messages, real voice notes, and real verdicts tracing back to real fact-check articles, verified directly on a phone rather than only in a test suite.
 
+## Try Habari on WhatsApp
+
+Three ways to connect — all send the join code `join stage-begun` to Habari's WhatsApp number, `+1 415 523 8886`, once:
+
+- **Scan the QR code** below with your phone's camera and tap Send.
+- **Tap the link** on your phone: https://wa.me/14155238886?text=join%20stage-begun
+- **Or type it yourself:** message `+1 415 523 8886` on WhatsApp with exactly `join stage-begun`.
+
+Then send any rumor, claim, screenshot, or voice note — for example, `I heard coconut oil cures COVID-19`.
+
+![Scan to join Habari on WhatsApp](docs/whatsapp-sandbox-qr.png)
+
 ## Limitations
 
 As a hackathon build, a few things are still ahead:

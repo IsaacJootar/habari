@@ -4,6 +4,20 @@
 
 Built for the OSF × Andela Hackathon (Stability & Social Cohesion track).
 
+## Try Habari on WhatsApp
+
+Three ways to connect — use whichever is easiest. All three do the same thing: send the join code `join stage-begun` to Habari's WhatsApp number, `+1 415 523 8886`, once. After that, send Habari any rumor, claim, screenshot, or voice note.
+
+1. **Scan the QR code** with your phone's camera — it opens WhatsApp with the join message already filled in; just tap Send.
+
+   ![Scan to join Habari on WhatsApp](docs/whatsapp-sandbox-qr.png)
+
+2. **Tap the link** (on your phone): [wa.me/14155238886?text=join%20stage-begun](https://wa.me/14155238886?text=join%20stage-begun)
+
+3. **Or type it yourself:** open WhatsApp, start a chat with `+1 415 523 8886`, and send exactly: `join stage-begun`
+
+Once joined, try: `I heard coconut oil cures COVID-19`. (Habari runs on the Twilio WhatsApp Sandbox for this prototype, so a join lasts 72 hours — send the same join text again to reconnect.)
+
 ## Problem
 
 Verified information already exists from credible fact-checking organizations — Africa Check, PesaCheck (Kenya/Tanzania/Uganda), Dubawa (Nigeria), and a growing roster of others (see [Sources](#sources) below) — but it's scattered across websites people don't know to visit. Misinformation, meanwhile, spreads fastest on WhatsApp, the platform people already use daily, even with limited data or bandwidth.
