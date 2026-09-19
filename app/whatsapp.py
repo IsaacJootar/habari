@@ -81,6 +81,22 @@ MEDIA_DOWNLOAD_FAILED_TEXT = (
 )
 
 
+# POC-quality translations, not reviewed by native speakers.
+PUBLISHED_LABEL = {"en": "Published", "sw": "Ilichapishwa", "ha": "An wallafa", "yo": "A tẹ̀ jáde", "ig": "E bipụtara"}
+
+_MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+
+
+def _format_date(iso_date: str) -> str | None:
+    """'2026-08-07' -> '7 Aug 2026'. Fixed English abbreviations (not locale
+    dependent) so the date reads the same in every supported language."""
+    try:
+        year, month, day = (int(part) for part in iso_date.split("-"))
+        return f"{day} {_MONTHS[month - 1]} {year}"
+    except (ValueError, IndexError):
+        return None
+
+
 def render_whatsapp_text(reply: WebhookReply, language: str = "en") -> str:
     labels = VERDICT_LABELS.get(language, VERDICT_LABELS["en"])
     label = labels.get(reply.verdict, reply.verdict)
@@ -88,6 +104,10 @@ def render_whatsapp_text(reply: WebhookReply, language: str = "en") -> str:
     if reply.source_url:
         source_label = SOURCE_LABEL.get(language, SOURCE_LABEL["en"])
         lines += ["", f"{source_label}: {reply.source_url}"]
+        published = _format_date(reply.published_date) if reply.published_date else None
+        if published:
+            published_label = PUBLISHED_LABEL.get(language, PUBLISHED_LABEL["en"])
+            lines.append(f"{published_label}: {published}")
     return "\n".join(lines)
 
 

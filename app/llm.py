@@ -168,7 +168,15 @@ def _parse_reply(
         if not explanation:
             raise ValueError("empty explanation")
 
-        return WebhookReply(verdict=verdict, explanation=explanation, source_url=source_url)
+        # The date comes from the cited article's own metadata, never from the model.
+        published = {match.entry.source_url: match.entry.published_date for match in matches}
+        published.update({result.url: result.published_date for result in live_results})
+        return WebhookReply(
+            verdict=verdict,
+            explanation=explanation,
+            source_url=source_url,
+            published_date=published.get(source_url),
+        )
     except (json.JSONDecodeError, KeyError, ValueError, TypeError):
         logger.exception("Could not trust LLM reply, falling back to Unverified. Raw: %s", raw)
         return unverified_reply(language, claim)

@@ -104,3 +104,24 @@ def test_live_search_queries_all_configured_sources(monkeypatch):
     monkeypatch.setattr(live_search, "_search_one_source", fake_search_one)
     live_search.live_search("some claim about something")
     assert set(calls) == set(live_search.LIVE_SEARCH_SOURCES.keys())
+
+
+def test_search_one_source_captures_publish_date_and_tolerates_missing(monkeypatch):
+    payload = [
+        {
+            "title": {"rendered": "Dated article"},
+            "content": {"rendered": "<p>Body</p>"},
+            "link": "https://example.org/dated",
+            "date": "2026-08-07T11:03:18",
+        },
+        {
+            "title": {"rendered": "Undated article"},
+            "content": {"rendered": "<p>Body</p>"},
+            "link": "https://example.org/undated",
+        },
+    ]
+    monkeypatch.setattr(live_search.httpx, "get", lambda *a, **k: _FakeResponse(payload))
+
+    results = live_search._search_one_source("TestSource", "https://example.org/wp-json", "claim")
+    assert results[0].published_date == "2026-08-07"
+    assert results[1].published_date is None

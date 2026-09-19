@@ -276,3 +276,23 @@ def test_whatsapp_background_task_detects_language_and_passes_it_through(monkeyp
     # detect_language has run (in the background task) and its result
     # reached synthesize_verdict.
     assert captured["language"] == "ha"
+
+
+def test_render_shows_published_date_after_source_when_known():
+    from app.whatsapp import render_whatsapp_text
+
+    reply = WebhookReply(
+        verdict="False", explanation="Not true.", source_url="https://example.org/a", published_date="2026-08-07"
+    )
+    text = render_whatsapp_text(reply)
+    assert text.endswith("Source: https://example.org/a\nPublished: 7 Aug 2026")
+    assert "Ilichapishwa: 7 Aug 2026" in render_whatsapp_text(reply, "sw")
+
+
+def test_render_omits_date_line_when_unknown_or_malformed():
+    from app.whatsapp import render_whatsapp_text
+
+    undated = WebhookReply(verdict="False", explanation="Not true.", source_url="https://example.org/a")
+    assert "Published" not in render_whatsapp_text(undated)
+    bad = undated.model_copy(update={"published_date": "not-a-date"})
+    assert "Published" not in render_whatsapp_text(bad)

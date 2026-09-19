@@ -67,6 +67,7 @@ class LiveSearchResult(BaseModel):
     title: str
     content: str
     url: str
+    published_date: str | None = None
 
 
 def _clean_html(raw: str) -> str:
@@ -86,7 +87,7 @@ def _search_one_source(source_name: str, base_url: str, query: str) -> list[Live
     params = {
         "search": query,
         "per_page": MAX_RESULTS_PER_SOURCE,
-        "_fields": "title,link,content,excerpt",
+        "_fields": "title,link,content,excerpt,date",
     }
     try:
         response = httpx.get(
@@ -105,8 +106,13 @@ def _search_one_source(source_name: str, base_url: str, query: str) -> list[Live
             item.get("excerpt", {}).get("rendered", "")
         )
         link = item.get("link")
+        published = (item.get("date") or "")[:10] or None
         if title and link and content:
-            results.append(LiveSearchResult(source=source_name, title=title, content=content, url=link))
+            results.append(
+                LiveSearchResult(
+                    source=source_name, title=title, content=content, url=link, published_date=published
+                )
+            )
     return results
 
 

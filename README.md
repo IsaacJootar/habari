@@ -13,7 +13,7 @@ Verified information already exists from credible fact-checking organizations �
 A user forwards a message to the bot on WhatsApp — typed text, a voice note, or a screenshot/image, all handled the same way. Habari replies with:
 - A verdict: **True / False / Misleading / Unverified**
 - A 2-3 sentence plain-language explanation
-- A link to the trusted source article
+- A link to the trusted source article, with its publication date so people can judge how current it is (where the date is known)
 - If nothing matches: an honest "Unverified" plus what to check next
 
 Habari is a **router and summarizer on top of existing trusted fact-checkers** — it never invents a verdict from general AI knowledge. If nothing real is found — neither in the curated dataset nor via live search — it always says "Unverified" rather than guessing.
@@ -86,6 +86,7 @@ One candidate source (ZimFact) was investigated and deliberately **not** added �
 - [x] Stress-tested against the locked demo scenarios (health rumor, election claim, scam) plus an unverifiable claim and a Swahili variant — found and fixed a real retrieval bug in the process (see BUILD_PLAN.md Phase 4)
 - [x] Voice note transcription (`app/media.py`) — a voice note gets transcribed (OpenAI `gpt-4o-mini-transcribe`) and the text runs through the normal pipeline; verified with real synthesized speech, not just mocks
 - [x] Image/screenshot claim extraction (`app/media.py`) — the visible claim text gets read out of the image (gpt-4o-mini, multimodal) and runs through the normal pipeline; verified with a real generated test image, not just mocks
+- [x] Publication date shown on every verdict where known (`published_date`) — read from the source page's own metadata for curated entries and from the site's API for live results, never supplied by the LLM; 45 of 64 curated entries are dated
 - [x] Demo video — real WhatsApp exchanges, narrated live
 - [x] Pitch deck (submitted directly to judges, not in this repo)
 - [ ] Phase 6: Written summary, final end-to-end test, submission
@@ -149,6 +150,7 @@ This is an invention-sprint proof of concept, not a production system — see `C
 
 - **No hosted deployment.** The bot only runs while the dev machine's local server + ngrok tunnel are active — a deliberate scoping decision (see `BUILD_PLAN.md` Phase 5), not an oversight, since a live judge-reachable instance isn't one of the hackathon's required deliverables. The demo video shows real WhatsApp exchanges instead.
 - **Live search covers 2 of 5 sources.** Dubawa and GhanaFact are searched live on every claim; Africa Check, PesaCheck, and AFP Fact Check block plain automated requests (confirmed directly), so they're covered only by the curated dataset snapshot.
+- **Not every verdict shows a date.** 45 of the 64 curated entries carry a publication date; the other 19 (Africa Check, and AFP's own doc pages) sit behind bot-checks that couldn't be read, and a date is only ever shown when it was read from the source itself, never guessed — those replies show the source link without one.
 - **Non-English copy isn't native-speaker reviewed.** Swahili, Hausa, Yoruba, and Igbo replies are LLM-generated and grounded correctly, but the wording itself hasn't been checked by a native speaker of each language.
 - **National newspaper suggestions cover 4 countries** (Nigeria, Kenya, Ghana, Uganda) — others fall back to the generic "check africacheck.org/pesacheck.org/dubawa.org" suggestion.
 - **In-memory session state.** The "seen this sender before" onboarding flag resets on server restart — a deliberate privacy tradeoff (no persistent user data), not a bug.
@@ -162,3 +164,4 @@ What this POC demonstrates is worth developing further — with more time:
 - **Add live search for the 3 remaining sources** (Africa Check, PesaCheck, AFP Fact Check) via a proper, non-blocked search integration.
 - **Grow the curated dataset and the national-newspaper list** beyond the current 64 articles / 4 countries.
 - **Native-speaker review pass** on the Swahili, Hausa, Yoruba, and Igbo copy.
+- **More languages** — French, Portuguese, and Arabic (the brief names them), plus further African languages. Language detection is already LLM-based, so this is mostly translating the fixed reply text and adding francophone/lusophone/arabophone fact-check sources.

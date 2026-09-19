@@ -16,6 +16,7 @@ class FactCheckEntry(BaseModel):
     topic_tags: list[str]
     country: str
     source: str
+    published_date: str | None = None  # YYYY-MM-DD, only where read from the page itself
 
 
 class RetrievalMatch(BaseModel):
@@ -27,6 +28,7 @@ class WebhookReply(BaseModel):
     verdict: Verdict
     explanation: str
     source_url: str | None = None
+    published_date: str | None = None
 
 
 UNVERIFIED_REPLY_EN = WebhookReply(

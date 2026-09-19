@@ -5,6 +5,7 @@
     "summary": "A widely shared article claimed Philippine scientists had proven that virgin coconut oil cures COVID-19. PesaCheck found that while early-stage trials on coconut oil as a supplement were underway in the Philippines, WHO confirmed there was no vaccine or cure for COVID-19 at the time, making the cure claim false.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/false-coconut-does-not-cure-covid-19/",
+    "published_date": "2020-08-03",
     "topic_tags": ["health", "covid-19", "home-remedy", "misinformation"],
     "country": "Pan-African",
     "source": "PesaCheck"
@@ -15,6 +16,7 @@
     "summary": "A fabricated image styled as a BBC breaking-news graphic claimed the broadcaster had confirmed COVID-19 vaccinated people would not survive past June 2026. PesaCheck found no such report anywhere on BBC's platforms, and BBC directly confirmed to PesaCheck that the story was not genuine.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/false-bbc-did-not-report-that-people-vaccinated-against-covid-19-wont-live-beyond-june-2026/",
+    "published_date": "2026-02-13",
     "topic_tags": ["health", "vaccine", "covid-19", "misinformation"],
     "country": "Pan-African",
     "source": "PesaCheck"
@@ -25,6 +27,7 @@
     "summary": "During Uganda's 2026 Ebola outbreak, a screenshot circulated claiming the Ministry of Health had posted that urban Ugandans were confusing hunger with Ebola symptoms. PesaCheck found no trace of the post on the ministry's official account, and a ministry spokesperson confirmed the message was fake.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/fake-this-purported-ministry-of-health-x-post-about-ugandans-mistaking-hunger-for-ebola-is-fabricated/",
+    "published_date": "2026-06-28",
     "topic_tags": ["health", "ebola", "outbreak", "uganda"],
     "country": "Uganda",
     "source": "PesaCheck"
@@ -35,6 +38,7 @@
     "summary": "A viral quote attributed to Henry Kissinger describing mandatory vaccination as population control, supposedly from a 2009 WHO address, circulated widely online. PesaCheck found no record of Kissinger giving such a speech, and both his press office and the WHO denied the quote and event ever existed.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/false-this-screenshot-about-mandatory-vaccinations-attributed-to-former-us-secretary-of-state/",
+    "published_date": "2021-03-17",
     "topic_tags": ["health", "vaccine", "conspiracy", "misinformation"],
     "country": "Kenya",
     "source": "PesaCheck"
@@ -95,6 +99,7 @@
     "summary": "A viral video claimed a mixture of waterleaf and evaporated milk could cure low sperm count in men. Dubawa reviewed the limited scientific literature, which is restricted to animal studies with mixed results, and two fertility specialists confirmed there is no clinical evidence supporting the remedy in humans.",
     "verdict": "False",
     "source_url": "https://dubawa.org/false-waterleaf-mixture-does-not-cure-low-sperm-count/",
+    "published_date": "2026-08-27",
     "topic_tags": ["health", "fertility", "home-remedy", "nigeria"],
     "country": "Nigeria",
     "source": "Dubawa"
@@ -105,6 +110,7 @@
     "summary": "A viral X post claimed a student in Lokoja, Kogi State, had died of a hemorrhagic fever outbreak, sparking fears of Lassa fever spreading in the area. Dubawa found the student's test results had come back negative for Lassa fever, and the state health commissioner denied any confirmed outbreak.",
     "verdict": "False",
     "source_url": "https://dubawa.org/x-users-claim-hemorrhagic-fever-killed-student-in-kogi-false/",
+    "published_date": "2024-04-11",
     "topic_tags": ["health", "outbreak", "lassa-fever", "nigeria"],
     "country": "Nigeria",
     "source": "Dubawa"
@@ -115,6 +121,7 @@
     "summary": "Videos shared on Facebook claimed a Nigerian doctor had invented a drug that cures high blood pressure within days and urged patients to stop taking their prescribed medication. Dubawa found the footage combined a deepfake TV clip with unrelated protest footage and an unrelated conference speech, and confirmed no such cure exists.",
     "verdict": "Misleading",
     "source_url": "https://dubawa.org/misleading-nigerian-doctor-did-not-invent-hypertension-cure/",
+    "published_date": "2024-02-21",
     "topic_tags": ["health", "hypertension", "deepfake", "nigeria"],
     "country": "Nigeria",
     "source": "Dubawa"
@@ -125,6 +132,7 @@
     "summary": "An image of a purported Star newspaper article claimed a campaign to split the Mt Kenya voting bloc was undermining former deputy president Rigathi Gachagua's support. PesaCheck found the article never appeared on The Star's site or social channels, spotted formatting inconsistencies, and confirmed with the publication that it disowned the piece.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/fake-this-article-on-mt-kenya-voting-bloc-isnt-from-the-star/",
+    "published_date": "2026-09-07",
     "topic_tags": ["election", "kenya", "fabricated-article"],
     "country": "Kenya",
     "source": "PesaCheck"
@@ -135,6 +143,7 @@
     "summary": "A doctored front page of The Standard newspaper claimed Kenya's opposition coalition had settled on Martha Karua as its 2027 presidential candidate. PesaCheck compared it with the newspaper's genuine e-paper edition from the same date, which carried a completely different headline and story, and the publisher confirmed the cover was fake.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/altered-this-cover-of-the-standard-featuring-a-story-on-opposition-presidential-candidate-is-doctored/",
+    "published_date": "2026-08-21",
     "topic_tags": ["election", "kenya", "doctored-image", "2027-election"],
     "country": "Kenya",
     "source": "PesaCheck"
@@ -145,6 +154,7 @@
     "summary": "A TikTok video appeared to show Uganda's President Museveni threatening violence against anyone rejecting the 2026 election results and admitting to rigging the vote. PesaCheck's AI-detection analysis found a 99.9% likelihood the video was synthetically generated from a still photo, with no independent record of the statements being made.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/fake-this-video-of-president-musevenis-warning-about-election-results-is-fabricated/",
+    "published_date": "2026-03-26",
     "topic_tags": ["election", "uganda", "deepfake", "museveni"],
     "country": "Uganda",
     "source": "PesaCheck"
@@ -155,6 +165,7 @@
     "summary": "A TikTok screenshot claimed the BBC had published election projections from a group called 'International Election Watch' showing opposition candidate Bobi Wine losing badly in Uganda's 2026 vote. PesaCheck found no such organisation exists and the BBC confirmed it never published the story.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/false-this-bbc-news-report-on-the-projections-of-ugandan-elections-is-fake/",
+    "published_date": "2026-01-17",
     "topic_tags": ["election", "uganda", "fabricated-article", "bobi-wine"],
     "country": "Uganda",
     "source": "PesaCheck"
@@ -165,6 +176,7 @@
     "summary": "A TikTok video circulating after Uganda's 2026 election claimed to show opposition leader Bobi Wine being sworn in as president. A reverse image search by PesaCheck traced the footage to Bobi Wine's actual 2017 swearing-in as a member of parliament, not a 2026 presidential inauguration.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/false-this-video-does-not-show-bobi-wines-swearing-in-as-president-of-uganda/",
+    "published_date": "2026-05-21",
     "topic_tags": ["election", "uganda", "bobi-wine", "old-footage"],
     "country": "Uganda",
     "source": "PesaCheck"
@@ -175,6 +187,7 @@
     "summary": "A New Vision front page about a proposal for Ugandan MPs, rather than the public, to elect the president was shared as if it were current 2026 news. PesaCheck traced the front page back to January 2022 and confirmed the constitutional amendment never happened, with the president still elected by popular vote.",
     "verdict": "Misleading",
     "source_url": "https://pesacheck.org/missing-context-this-newspaper-front-page-on-the-proposal-for-mps-to-elect-ugandas-president-is-old/",
+    "published_date": "2026-02-19",
     "topic_tags": ["election", "uganda", "old-news", "constitution"],
     "country": "Uganda",
     "source": "PesaCheck"
@@ -185,6 +198,7 @@
     "summary": "A fake Citizen Digital article claimed Northern Kenya's population and voting patterns held the key to President Ruto's 2027 re-election bid, citing invented support percentages. PesaCheck found no matching article on Citizen Digital's site and identified layout and formatting inconsistencies before the outlet confirmed it never published the piece.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/fake-this-citizen-digital-article-about-president-william-rutos-re-election-is-fabricated/",
+    "published_date": "2026-06-16",
     "topic_tags": ["election", "kenya", "2027-election", "fabricated-article"],
     "country": "Kenya",
     "source": "PesaCheck"
@@ -195,6 +209,7 @@
     "summary": "An image circulating online showed presidential aide Farouk Kibet appearing to write an awkwardly phrased pro-Ruto slogan on a chalkboard, mocking his education. PesaCheck compared it with Kibet's own photos from the same school event and found the second phrase had been added digitally.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/altered-this-image-of-rutos-aide-farouk-writing-on-a-board-is-doctored/",
+    "published_date": "2026-09-07",
     "topic_tags": ["election", "kenya", "doctored-image", "ruto"],
     "country": "Kenya",
     "source": "PesaCheck"
@@ -205,6 +220,7 @@
     "summary": "During vote collation, a Facebook post claimed Bola Tinubu had already been confirmed as Nigeria's 16th president after securing 25% of votes in 34 states. Dubawa found Nigeria's electoral commission had not yet declared a winner at the time the claim was made, even though Tinubu was leading.",
     "verdict": "False",
     "source_url": "https://dubawa.org/false-inec-yet-to-announce-winner-of-nigerias-2023-presidential-election/",
+    "published_date": "2023-02-28",
     "topic_tags": ["election", "nigeria", "inec", "2023-election"],
     "country": "Nigeria",
     "source": "Dubawa"
@@ -215,6 +231,7 @@
     "summary": "A Facebook post used invented regional vote percentages to claim Labour Party's Peter Obi actually won Nigeria's 2023 presidential election ahead of Atiku Abubakar and Bola Tinubu. Dubawa recalculated the real results from INEC-certified figures, which show Tinubu won with the most votes nationally.",
     "verdict": "False",
     "source_url": "https://dubawa.org/facebook-user-claims-obi-won-2023-presidential-election/",
+    "published_date": "2023-09-06",
     "topic_tags": ["election", "nigeria", "2023-election", "peter-obi"],
     "country": "Nigeria",
     "source": "Dubawa"
@@ -265,6 +282,7 @@
     "summary": "A site shared widely on WhatsApp claimed Safaricom was giving away KSh 5,000 to celebrate an M-PESA anniversary, requiring users to share the link before receiving cash. PesaCheck traced the site to a domain registered anonymously in Iceland, unrelated to Safaricom, which confirmed to PesaCheck it was a phishing scam.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/hoax-this-site-claiming-to-offer-cash-giveaways-for-m-pesa-anniversary-is-a-scam/",
+    "published_date": "2025-02-20",
     "topic_tags": ["scam", "mpesa", "phishing", "kenya"],
     "country": "Kenya",
     "source": "PesaCheck"
@@ -275,6 +293,7 @@
     "summary": "A website claimed Safaricom had launched an 'M-Pesa Trading' investment platform promising huge monthly returns, using an AI-generated video of the CEO for credibility, and asking users for a KSh 35,000 deposit. PesaCheck confirmed with Safaricom that the platform is not theirs and found the CEO's voice in the clip was artificially generated.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/hoax-this-site-running-a-trading-platform-supposedly-from-safaricom-is-a-scam/",
+    "published_date": "2025-09-20",
     "topic_tags": ["scam", "mpesa", "investment-fraud", "deepfake", "kenya"],
     "country": "Kenya",
     "source": "PesaCheck"
@@ -285,6 +304,7 @@
     "summary": "A link shared on WhatsApp claimed to be an official Kenya Defence Forces recruitment portal, collecting applicants' personal data and pushing them to share the link with many contacts. PesaCheck found the link led to an unofficial blogspot page rather than the real Ministry of Defence site, matching the pattern of a phishing scheme.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/hoax-this-site-purporting-to-be-a-kenya-defence-forces-recruitment-portal-is-a-scam/",
+    "published_date": "2023-07-31",
     "topic_tags": ["scam", "phishing", "job-scam", "kenya"],
     "country": "Kenya",
     "source": "PesaCheck"
@@ -295,6 +315,7 @@
     "summary": "A TikTok video claimed WhatsApp had introduced a feature that alerts a contact whenever you screenshot or screen-record their chat. Meta confirmed to PesaCheck that no such feature exists, and that only profile photos and 'View Once' messages have any screenshot restrictions.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/false-whatsapp-has-not-released-a-feature-that-notifies-users-when-chats-are-recorded-or/",
+    "published_date": "2025-09-11",
     "topic_tags": ["scam", "whatsapp", "misinformation", "tech"],
     "country": "Pan-African",
     "source": "PesaCheck"
@@ -305,6 +326,7 @@
     "summary": "A link circulating online claimed Coca-Cola was running a promotional survey that rewarded participants with prizes. Dubawa found no evidence the survey was affiliated with The Coca-Cola Company and concluded the link was a scam designed to collect user information.",
     "verdict": "False",
     "source_url": "https://dubawa.org/scam-alert-coca-cola-is-not-running-a-survey/",
+    "published_date": "2021-09-08",
     "topic_tags": ["scam", "giveaway", "phishing", "nigeria"],
     "country": "Nigeria",
     "source": "Dubawa"
@@ -315,6 +337,7 @@
     "summary": "Facebook adverts claimed e-commerce company Jumia was recruiting for various well-paid roles. When Dubawa applied, it was redirected to a cloned Konga website demanding upfront payments to 'upgrade' an account, and Jumia's official page confirmed it had no connection to the adverts.",
     "verdict": "False",
     "source_url": "https://dubawa.org/scammers-pose-as-jumia-organise-pseudo-recruitment-to-defraud-people/",
+    "published_date": "2023-09-23",
     "topic_tags": ["scam", "job-scam", "phishing", "nigeria"],
     "country": "Nigeria",
     "source": "Dubawa"
@@ -325,6 +348,7 @@
     "summary": "A viral WhatsApp message claimed the app was giving away 50GB of free data to mark its 10th anniversary, requiring users to click a link and share it widely. WhatsApp's own support team confirmed to Dubawa the message was a hoax unrelated to the company, and the link never delivered any data.",
     "verdict": "False",
     "source_url": "https://dubawa.org/whatsapp-offer-of-free-50gb-data-is-a-hoax/",
+    "published_date": "2020-07-13",
     "topic_tags": ["scam", "whatsapp", "giveaway", "nigeria"],
     "country": "Nigeria",
     "source": "Dubawa"
@@ -335,6 +359,7 @@
     "summary": "A WhatsApp message claimed telecom operator Globacom (Glo) was giving all customers 20GB of free data to mark its 18th anniversary. Dubawa found Glo's real anniversary offer was a much smaller, automatic reward for recharging customers in Nigeria only, and the company confirmed the viral message was not theirs.",
     "verdict": "False",
     "source_url": "https://dubawa.org/scam-glo-is-not-giving-out-20gb-data-to-customers-as-18th-anniversary-celebration-gifts/",
+    "published_date": "2021-09-21",
     "topic_tags": ["scam", "giveaway", "telecom", "liberia"],
     "country": "Liberia",
     "source": "Dubawa"
@@ -375,6 +400,7 @@
     "summary": "A years-old chain message resurfaced warning WhatsApp users not to open a video called 'Martinelli' and to avoid updating to a fake 'WhatsApp Gold', falsely attributing the warning to a BBC radio broadcast. PesaCheck confirmed with the BBC that it never issued such a warning, and the hoax has circulated in various forms since 2016.",
     "verdict": "False",
     "source_url": "https://pesacheck.org/hoax-this-message-warning-whatsapp-users-about-martinelli-video-is-fake/",
+    "published_date": "2024-02-27",
     "topic_tags": ["general", "whatsapp", "hoax", "chain-message"],
     "country": "Uganda",
     "source": "PesaCheck"
@@ -385,6 +411,7 @@
     "summary": "Ahead of Ghana's 2024 election, a WhatsApp link claimed former president John Mahama was distributing GHS500 in campaign funds to anyone who clicked and shared it widely. Dubawa found the link was a phishing scheme, and Mahama's own verified Facebook page publicly labelled the circulating message as fake.",
     "verdict": "False",
     "source_url": "https://ghana.dubawa.org/viral-post-claiming-john-mahama-offering-ghs500-to-ghanaians-false/",
+    "published_date": "2024-11-14",
     "topic_tags": ["general", "scam", "election", "ghana", "phishing"],
     "country": "Ghana",
     "source": "Dubawa"
@@ -405,6 +432,7 @@
     "summary": "A quote-card style flyer claimed US President Donald Trump had invited Ghana's President John Mahama to the White House to discuss gold deals, which Mahama supposedly turned down. GhanaFact found no record of any such invitation from either the White House or Jubilee House, and a presidential spokesperson called the flyer fake news.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/no-donald-trump-hasnt-invited-john-mahama-to-discuss-gold-deals-viral-flyer-fabricated/",
+    "published_date": "2026-09-11",
     "topic_tags": ["politics", "fabricated-flyer", "ghana", "trump"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -415,6 +443,7 @@
     "summary": "Government spokesperson Felix Kwakye Ofosu claimed dividends paid by Ghana's state-owned enterprises rose 53.6% in 2025. GhanaFact found his figures actually combined SOEs with joint-venture and other state entities, and that SOE-only dividends had in fact fallen by nearly 30% year on year.",
     "verdict": "Misleading",
     "source_url": "https://ghanafact.com/fact-check-2025-soe-dividends-did-not-increase-by-53-6-felix-kwakye-ofosus-claim-misleading/",
+    "published_date": "2026-09-14",
     "topic_tags": ["economy", "government", "ghana", "state-enterprises"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -425,6 +454,7 @@
     "summary": "NPP communicator Awal Mohammed said on a Joy News broadcast that the NDC had broken a manifesto promise to cap Supreme Court justices at 15. GhanaFact reviewed the NDC's 2024 manifesto and found no such promise was ever made about the Supreme Court.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/fact-check-awal-mohammeds-claim-that-ndc-promised-to-cap-supreme-court-justices-at-15-is-false/",
+    "published_date": "2026-08-31",
     "topic_tags": ["politics", "judiciary", "ghana", "manifesto"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -435,6 +465,7 @@
     "summary": "An NPP communicator claimed President Mahama had appointed 120 judges within 18 months in office. GhanaFact tallied the actual judicial appointments over that period, including Supreme Court, Court of Appeal and High Court judges, and found the true figure was far lower than claimed.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/fact-check-president-mahama-has-not-appointed-120-judges-in-18-months-as-npp-communicator-claims/",
+    "published_date": "2026-08-19",
     "topic_tags": ["politics", "judiciary", "ghana", "mahama"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -445,6 +476,7 @@
     "summary": "A two-page press release circulating on social media claimed President Mahama had announced a ministerial reshuffle. GhanaFact found no official government channel or credible media outlet had reported any reshuffle, and the NDC itself labelled the document deliberate misinformation.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/claim-that-president-mahama-reshuffled-ministers-is-false-here-is-how-to-bust-fake-documents/",
+    "published_date": "2026-06-15",
     "topic_tags": ["politics", "fabricated-document", "ghana", "government"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -455,6 +487,7 @@
     "summary": "Following an assault incident involving a detained suspect at a Ghana Police facility, several outlets and social media users circulated brightened or AI-altered versions of the original screenshot, along with false claims about the suspect's identity and government ties. GhanaFact traced the doctoring and found the claims about the suspect's government position were also unfounded.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/assault-in-police-custody-how-media-social-media-users-circulated-doctored-images-false-narratives/",
+    "published_date": "2026-08-17",
     "topic_tags": ["general", "doctored-image", "ghana", "police"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -465,6 +498,7 @@
     "summary": "A viral GHOne TV flyer claimed Ghana's government had agreed dual citizens could contest any public office. GhanaFact found the underlying constitutional review proposal explicitly excluded the presidency and vice-presidency from that eligibility, a detail the flyer left out.",
     "verdict": "Misleading",
     "source_url": "https://ghanafact.com/fact-check-ghone-flyer-claiming-dual-citizens-eligible-to-contest-any-position-in-ghana-is-misleading/",
+    "published_date": "2026-08-05",
     "topic_tags": ["politics", "constitution", "ghana", "dual-citizenship"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -475,6 +509,7 @@
     "summary": "Posts shared widely on Facebook, Instagram and TikTok claimed kindergarten pupils would be taught Chinese under Ghana's revised basic school curriculum. GhanaFact cited the Education Minister's clarification that foreign languages, including Chinese, are only optional from Primary 4 onward, not at kindergarten level.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/false-kindergarten-pupils-will-not-learn-chinese-under-ghanas-new-basic-school-curriculum/",
+    "published_date": "2026-08-07",
     "topic_tags": ["education", "ghana", "curriculum"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -485,6 +520,7 @@
     "summary": "A viral post claimed a cassava-based preparation could cure Type 2 diabetes, attributing the finding to University of Ghana research. The university publicly disclaimed the post, and GhanaFact found no credible study supporting cassava as a diabetes cure.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/health-misinformation-university-of-ghana-disclaims-viral-post-about-cassava-cure-for-type-2-diabetes/",
+    "published_date": "2026-01-21",
     "topic_tags": ["health", "diabetes", "home-remedy", "ghana"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -495,6 +531,7 @@
     "summary": "Majority Leader Mahama Ayariga and President Mahama both claimed that one million jobs had been created in 2025, citing Ghana Statistical Service figures. GhanaFact checked the actual GSS labour force report and found employment growth for the period was closer to 330,000, far below the claimed figure.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/the-1-million-jobs-in-2025-data-attributed-to-gss-unpacking-ayariga-president-mahamas-false-claim/",
+    "published_date": "2026-03-11",
     "topic_tags": ["economy", "employment", "ghana", "statistics"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -505,6 +542,7 @@
     "summary": "A viral video was shared as if NPP figure Abronye DC was directly responding to Minority Leader Afenyo-Markin's August 2026 criticism of GoldBod's losses. GhanaFact traced the clip to a January 2026 broadcast discussing an earlier, different IMF report, showing the video predates and could not be a response to the August remarks.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/fact-check-video-of-abronye-praising-goldbod-is-from-january-2026-not-targeted-at-afenyo-markin/",
+    "published_date": "2026-08-24",
     "topic_tags": ["politics", "old-footage", "ghana", "goldbod"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -515,6 +553,7 @@
     "summary": "The NPP's acting national chairman claimed the previous Akufo-Addo government had awarded the contract for the Accra-Kumasi Expressway. GhanaFact found the project was first mentioned only in the November 2025 budget speech under the current administration, contradicting the claim.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/false-accra-kumasi-expressway-was-not-awarded-by-akufo-addo-as-claimed-by-acting-npp-chairman/",
+    "published_date": "2026-08-18",
     "topic_tags": ["politics", "infrastructure", "ghana", "expressway"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -525,6 +564,7 @@
     "summary": "A viral image appeared to show then-President Akufo-Addo seated on a bed with social media personality Serwaa Broni inside a private jet. GhanaFact traced the bed to a stock photo of an aircraft interior and found clear signs of digital compositing using forensic image analysis tools.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/4225/",
+    "published_date": "2022-04-26",
     "topic_tags": ["general", "doctored-image", "ghana", "celebrity"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -535,6 +575,7 @@
     "summary": "An NDC official claimed the NPP failed to win any parliamentary seats in nine of Ghana's 16 regions in the 2024 election. GhanaFact's review of official electoral data found the NPP actually failed to win seats in only four regions, not nine.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/fact-check-ndcs-elikem-kotoko-falsely-claims-npp-has-no-parliamentary-seat-in-nine-regions/",
+    "published_date": "2026-08-25",
     "topic_tags": ["election", "ghana", "parliament", "2024-election"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -545,6 +586,7 @@
     "summary": "TV host Paul Adom-Otchere claimed MP Collins Dauda had never won his constituency seat by more than 10 votes. GhanaFact checked Electoral Commission records across five elections and found Dauda won by margins in the thousands in four of them.",
     "verdict": "False",
     "source_url": "https://ghanafact.com/adom-otcheres-claim-that-collins-dauda-has-not-won-his-seat-by-more-than-10-votes-before-is-false/",
+    "published_date": "2026-09-07",
     "topic_tags": ["election", "ghana", "parliament"],
     "country": "Ghana",
     "source": "GhanaFact"
@@ -615,6 +657,7 @@
     "summary": "Images claimed to show Kenya Defence Forces recruits arranged to spell out political slogans at a passing-out parade attended by President Ruto. AFP Fact Check reviewed livestream footage of the actual event and used AI-detection tools that confirmed the images were entirely AI-generated, not real photographs.",
     "verdict": "False",
     "source_url": "https://www.yahoo.com/news/politics/articles/ai-generated-images-not-show-131744808.html",
+    "published_date": "2026-09-08",
     "topic_tags": ["election", "kenya", "ai-generated", "military"],
     "country": "Kenya",
     "source": "AFP Fact Check"
@@ -625,6 +668,7 @@
     "summary": "A manipulated news banner claimed opposition leader Peter Obi had urged Nigerian troops to reject a government salary increase. AFP Fact Check found the false headline was grafted onto an unrelated 2023 article, and both Obi and the news outlet it was attributed to denied ever publishing any such statement.",
     "verdict": "False",
     "source_url": "https://www.yahoo.com/news/world/articles/doctored-news-banner-falsely-claims-124123702.html",
+    "published_date": "2026-08-24",
     "topic_tags": ["politics", "nigeria", "doctored-image", "military"],
     "country": "Nigeria",
     "source": "AFP Fact Check"
@@ -635,6 +679,7 @@
     "summary": "A Kenyan job seeker believed he had been shortlisted for a United Nations Environment Programme role advertised on LinkedIn, then was asked to pay a 'facilitation fee' to secure an interview. AFP Fact Check investigators found many such job ads across Kenya, Nigeria and South Africa are scams, and confirmed UNEP never charges fees at any stage of recruitment.",
     "verdict": "False",
     "source_url": "https://citizen.digital/article/job-seekers-in-africa-easy-prey-for-online-scammers-n302476",
+    "published_date": "2022-07-20",
     "topic_tags": ["scam", "job-scam", "kenya", "pan-african"],
     "country": "Pan-African",
     "source": "AFP Fact Check"

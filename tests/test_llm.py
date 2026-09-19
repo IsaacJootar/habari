@@ -199,3 +199,33 @@ def test_combined_matches_and_live_results_both_offered_to_llm(monkeypatch):
     assert LIVE_RESULT.url in user_message
     assert "Published verdict" in user_message  # static match
     assert "verdict not given" in user_message  # live result
+
+
+def test_curated_verdict_carries_published_date_from_entry_not_model(monkeypatch):
+    dated = ENTRY.model_copy(update={"published_date": "2021-03-17"})
+    content = json.dumps(
+        {
+            "verdict": "False",
+            "explanation": "This is false.",
+            "source_url": dated.source_url,
+            "published_date": "1999-01-01",  # a model-supplied date must be ignored
+        }
+    )
+    _patch_client(monkeypatch, content=content)
+    reply = llm.synthesize_verdict("claim", [RetrievalMatch(entry=dated, score=90.0)])
+    assert reply.published_date == "2021-03-17"
+
+
+def test_live_verdict_carries_published_date_from_result(monkeypatch):
+    live = LIVE_RESULT.model_copy(update={"published_date": "2026-08-07"})
+    content = json.dumps({"verdict": "False", "explanation": "False.", "source_url": live.url})
+    _patch_client(monkeypatch, content=content)
+    reply = llm.synthesize_verdict("claim", [], [live])
+    assert reply.published_date == "2026-08-07"
+
+
+def test_undated_source_gives_no_published_date(monkeypatch):
+    content = json.dumps({"verdict": "False", "explanation": "False.", "source_url": ENTRY.source_url})
+    _patch_client(monkeypatch, content=content)
+    reply = llm.synthesize_verdict("claim", MATCHES)
+    assert reply.published_date is None
