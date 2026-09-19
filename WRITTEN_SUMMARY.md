@@ -20,7 +20,7 @@ People in rural or peri-urban African communities who receive a suspicious messa
 
 A user forwards whatever they received — text, a voice note, or a screenshot — to the Habari number, exactly as they'd forward it to a friend. No app to install, no account to create.
 
-Behind an instant "checking that for you" reply, Habari matches the claim against a curated dataset of real, verified fact-checks, searches select fact-checking sites live for anything more recent, and has an AI read only what was actually found to write a plain-language verdict — **True, False, Misleading, or an honest Unverified.** Every verdict links back to the real source article it came from. Nothing is ever answered from the AI's own general knowledge.
+Behind an instant "checking that for you" reply, Habari matches the claim against a curated dataset of real, verified fact-checks, searches select fact-checking sites live for anything more recent, and has an AI read only what was actually found to write a plain-language verdict — **True, False, Misleading, or an honest Unverified.** Every verdict links back to the real source article it came from, and the whole exchange happens in the user's own language — **English, Swahili, Hausa, Yoruba, or Igbo**, detected automatically. Nothing is ever answered from the AI's own general knowledge.
 
 That's the one rule that never bends: Habari is a **router and summarizer on top of real fact-checkers, not a source of its own opinions.**
 
@@ -32,7 +32,7 @@ This matters well beyond any single rumor. Much of what circulates is about publ
 - **Low bandwidth** — the exchange is plain text over WhatsApp; no heavy media required to use it, even though it can accept one if that's what the user has.
 - **Accessibility** — accepts a voice note or a photo of a screenshot, not just typed text, and replies in short, plain language, inside an app people already know.
 - **Privacy by design** — Habari itself stores no user profiles and no message history; the only thing it holds is a temporary in-memory flag for the current session, gone on restart.
-- **Multilingual access** — detects and replies in the sender's own language (English, Swahili, Hausa, Yoruba, Igbo).
+- **Multilingual access** — Habari understands and answers in **five languages: English, Swahili, Hausa, Yoruba, and Igbo.** It detects the language of each message automatically and replies in kind — verdict labels, explanation, and all — so someone who writes in Hausa gets their answer in Hausa, with the same real source, without choosing a language or changing any setting. This covers the major languages of East and West Africa, including three Nigerian languages that common off-the-shelf language-detection libraries don't cover.
 - **Local relevance** — sourced from credible African fact-checking organizations, with country-specific news suggestions when nothing else applies. Sources, articles, and country suggestions are simple data rather than hard-coded logic, so adapting Habari to another country or community means adding entries, not rebuilding it.
 - **Clear next steps** — an "Unverified" reply always pairs the honest answer with something concrete to check next, never a dead end.
 

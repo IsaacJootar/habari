@@ -121,5 +121,5 @@ Exactly the gap flagged above — the user sent a real voice note through the li
   - *Privacy wording* tightened to "Habari itself stores nothing" (Twilio and OpenAI still process messages in transit). *Local relevance* gets an explicit adaptability line. *Languages*: the brief names Arabic/French/Portuguese — added to Next steps, not built.
   - Deadline per the brief is **2026-09-21 23:59 UTC** — plan to submit by 09-20.
   - Tests: 80 passing (6 new for dates).
-- [ ] Final end-to-end test
+- [x] **Final end-to-end test — passed (2026-09-19).** Found the dev server on port 8010 was still running the previous day's code (started without `--reload`), so restarted it on the same port before testing — ngrok tunnel and Sandbox webhook unchanged. User then ran the demo set from a real phone on the live Sandbox (curated English verdict with date, live-search verdict, Swahili verdict, Unverified, plus media) and confirmed all looked correct.
 - [ ] Submit — buffer day before 2026-09-21 deadline, not on the day itself
